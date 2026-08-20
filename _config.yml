@@ -66,3 +66,10 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+# 사이트로 배포하지 않을 파일 (저장소에는 남지만 사이트에는 노출되지 않음)
+exclude:
+  - CLAUDE.md
+  - README.md
+  - Gemfile
+  - Gemfile.lock
