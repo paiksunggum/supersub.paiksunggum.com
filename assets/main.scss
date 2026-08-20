@@ -1,0 +1,109 @@
+---
+# 이 빈 프론트매터가 있어야 Jekyll이 SCSS를 CSS로 변환합니다.
+---
+
+@import "minima";
+
+/* ── 보고서 표지 ───────────────────────────────────────── */
+.report-cover {
+  text-align: center;
+  padding: 4rem 1rem 3rem;
+}
+
+.cover-client {
+  font-size: 0.95rem;
+  letter-spacing: 0.15em;
+  color: #666;
+  margin-bottom: 2.5rem;
+}
+
+.cover-title {
+  font-size: 2.4rem;
+  line-height: 1.35;
+  font-weight: 700;
+  margin: 0 0 1rem;
+  word-break: keep-all;
+}
+
+.cover-subtitle {
+  font-size: 1.35rem;
+  color: #444;
+  margin: 0;
+}
+
+.cover-rule {
+  width: 60px;
+  border: 0;
+  border-top: 2px solid #333;
+  margin: 3rem auto;
+}
+
+.cover-meta {
+  display: inline-block;
+  text-align: left;
+  margin: 0;
+
+  dt {
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: #777;
+    margin-top: 1.5rem;
+  }
+
+  dd {
+    font-size: 1.1rem;
+    margin: 0.35rem 0 0;
+  }
+}
+
+.cover-weeks { color: #888; font-size: 0.9em; }
+
+.cover-next {
+  margin-top: 4rem;
+  font-size: 1.05rem;
+}
+
+/* ── 목차 ──────────────────────────────────────────────── */
+.report-toc {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1rem 0 3rem;
+}
+
+.toc-part {
+  font-size: 1.3rem;
+  border-bottom: 2px solid #333;
+  padding-bottom: 0.6rem;
+  margin: 3rem 0 1.5rem;
+}
+
+.toc-list {
+  padding-left: 1.4rem;
+
+  > li {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 1.4rem;
+    word-break: keep-all;
+  }
+
+  ol {
+    list-style-type: decimal;
+    padding-left: 1.2rem;
+    margin-top: 0.5rem;
+
+    li {
+      font-size: 0.98rem;
+      font-weight: 400;
+      color: #444;
+      margin-top: 0.3rem;
+    }
+  }
+}
+
+.toc-back { margin-top: 3rem; }
+
+@media screen and (max-width: 600px) {
+  .cover-title { font-size: 1.8rem; }
+  .report-cover { padding-top: 2rem; }
+}

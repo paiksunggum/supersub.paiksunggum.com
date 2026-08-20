@@ -27,6 +27,21 @@ url: "https://paiksunggum.github.io" # the base hostname & protocol for your sit
 twitter_username:
 github_username:  paiksunggum
 
+# ── 보고서 정보 ────────────────────────────────────────────────
+# 사업명이 확정되면 아래 project_name 한 줄만 고치면 표지·목차에 모두 반영됩니다.
+report:
+  project_name: "(사업명 미정)"
+  subtitle: "개발 결과 보고서"
+  client: "한국소프트웨어진흥원"
+  period_start: "2026년 8월 20일"
+  period_end: "2026년 10월 27일"
+  period_weeks: "10주"
+  members:
+    - 백성검
+    - 박민호
+    - 정상호
+    - 정어진
+
 # Build settings
 theme: minima
 plugins:
