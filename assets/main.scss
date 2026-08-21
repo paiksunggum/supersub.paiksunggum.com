@@ -18,17 +18,27 @@
 }
 
 .cover-title {
-  font-size: 2.4rem;
+  font-size: 2rem;
   line-height: 1.35;
   font-weight: 700;
-  margin: 0 0 1rem;
+  margin: 0;
   word-break: keep-all;
 }
 
+/* 부제(개발 제안서)가 제목 위에 온다. */
 .cover-subtitle {
   font-size: 1.35rem;
   color: #444;
-  margin: 0;
+  margin: 0 0 1rem;
+}
+
+/* 제목 아래 영문 표기 */
+.cover-title-en {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: #999;
+  letter-spacing: 0.01em;
+  margin: 1rem 0 0;
 }
 
 .cover-rule {
@@ -77,6 +87,11 @@
   margin: 3rem 0 1.5rem;
 }
 
+/* 부록은 장 번호와 구분되도록 가·나·다 대신 A·B·C를 쓴다. */
+.toc-appendix {
+  list-style-type: upper-alpha;
+}
+
 .toc-list {
   padding-left: 1.4rem;
 
@@ -104,6 +119,24 @@
 .toc-back { margin-top: 3rem; }
 
 @media screen and (max-width: 600px) {
-  .cover-title { font-size: 1.8rem; }
+  .cover-title { font-size: 1.45rem; }
+  .cover-title-en { font-size: 0.75rem; }
   .report-cover { padding-top: 2rem; }
+}
+
+/* 칸반·주차별 표처럼 넓은 표는 표 안에서 가로 스크롤한다. */
+.post-content table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* 상단 내비게이션(표지·목차 링크, 모바일 햄버거)을 쓰지 않는다. */
+.site-nav {
+  display: none;
+}
+
+/* 표지 페이지에서는 minima가 출력하는 페이지 제목("표지")을 숨긴다. */
+.post:has(.report-cover) .post-header {
+  display: none;
 }

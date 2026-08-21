@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: demo.paiksunggum.com
+title: "멀티모달 용병 스카우팅 & RAG 검증 플랫폼"
 email: bsgum5373@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   백성검의 데모 사이트입니다. Jekyll로 만들고 GitHub Pages로 배포했습니다.
@@ -30,9 +30,21 @@ github_username:  paiksunggum
 # ── 보고서 정보 ────────────────────────────────────────────────
 # 사업명이 확정되면 아래 project_name 한 줄만 고치면 표지·목차에 모두 반영됩니다.
 report:
-  project_name: "(사업명 미정)"
-  subtitle: "개발 결과 보고서"
+  project_name: "생활체육 경기 영상을 멀티모달로 분석하여 용병을 구인하고 RAG 검증을 자동화하는 플랫폼 (Hit Rate 90%, Recall@5 90% 달성)"
+  # 표지 제목 아래 영문 표기. 줄 단위로 적는다.
+  project_name_en:
+    - "Multimodal Analysis of Amateur Sports Match Videos"
+    - "for Substitute Player Scouting and Automated RAG Verification"
+
+  # 표지 제목 줄바꿈 위치 — 각 문구 뒤에서 줄바꿈한다. 사업명이 바뀌면 함께 확인한다.
+  title_breaks:
+    - "멀티모달로 분석하여"
+    - "자동화하는 플랫폼"
+  subtitle: "개발 제안서"
   client: "한국소프트웨어진흥원"
+  team: "Super-Sub / 슈퍼서브"
+  repo_url: "https://github.com/paiksunggum/supersub.paiksunggum.com"
+  demo_url: "https://supersub.paiksunggum.com"
   period_start: "2026년 8월 20일"
   period_end: "2026년 10월 27일"
   period_weeks: "10주"
@@ -41,6 +53,10 @@ report:
     - 박민호
     - 정상호
     - 정어진
+
+# 상단 내비게이션을 쓰지 않는다. 빈 목록이면 링크가 출력되지 않는다.
+# (모바일 햄버거 아이콘은 assets/main.scss에서 .site-nav를 숨겨 함께 제거한다)
+header_pages: []
 
 # Build settings
 theme: minima

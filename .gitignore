@@ -3,3 +3,12 @@ _site
 .jekyll-cache
 .jekyll-metadata
 vendor
+
+# 환경 변수 — 실제 값이 들어가는 파일은 커밋하지 않는다
+.env
+.env.local
+.env.*.local
+!.env.example
+!.env.local.example
+
+.DS_Store
