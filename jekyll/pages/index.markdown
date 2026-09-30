@@ -45,7 +45,7 @@ nav_exclude: true
       <a href="/assets/home/app-home.jpg" title="크게 보기">
         <img src="/assets/home/app-home.jpg" alt="Super-Sub 안드로이드 앱 홈 화면 — 선수 카드와 스쿼드 판" loading="lazy" width="600" height="1300">
       </a>
-      <figcaption>앱 홈 — Flutter</figcaption>
+      <figcaption>앱 홈 — Flutter <span class="home-media__zoom">(눌러서 크게)</span></figcaption>
     </figure>
     <figure class="home-media__web">
       <a href="/assets/home/web-compare.jpg" title="크게 보기">
