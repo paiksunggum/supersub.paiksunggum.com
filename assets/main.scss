@@ -1736,3 +1736,38 @@ html[data-theme="dark"] .home-cards {
     .home-media__controls { padding: 0.8rem 0.2rem 0; }
   }
 }
+
+// --- 두 칸에 여유를 주고 줄을 넓힌다 (2026-09-30, 9차) ---------------------------------
+// 🔴 가름선을 칸 가장자리 가까이 긋기 위해 **좌우 여백을 칸이 아니라 줄이 갖는다.**
+//    칸이 여백을 가지면 선이 그만큼 안쪽에서 끝난다 — 선은 줄의 테두리라서 그렇다.
+.home-cards {
+  .home-facts,
+  .home-browse {
+    padding: 1.25rem 0.5rem; // 좌우는 얇게 — 선이 칸 끝 0.5rem 앞까지 간다
+
+    // 🔴 격자 칸을 가로로 꽉 채운다. 앞 판에서 세로 길이를 맞추려고 넣은
+    //    `justify-content: center` 가 격자에서는 **칸을 가운데로 모아** 줄 너비가
+    //    글자 너비(289px)까지 줄었고, 그래서 선이 칸 끝에서 51px 안쪽에서 끝났다.
+    grid-template-columns: minmax(0, 1fr);
+    justify-content: stretch;
+  }
+
+  .home-facts > div,
+  .home-browse > div {
+    padding: 0.62rem 0.9rem; // 세로에 여유, 좌우는 글자 여백
+    gap: 0.22rem;
+  }
+}
+
+// 눈썹줄과 큰 제목을 한 번 더 키운다.
+// 🔴 cqw 계수(3.75)는 그대로 두고 **최댓값만** 올린다. 계수를 올리면 글 칸이 좁은 구간에서
+//    둘째 줄이 접힌다 — 한 줄에 들어가는 한계가 대략 칸 폭의 3.77% 다(재서 확인).
+.home-hero__text {
+  .home-hero__eyebrow {
+    font-size: 1.12rem !important;
+  }
+
+  h1 {
+    font-size: clamp(0.78rem, 3.75cqw, 1.78rem) !important;
+  }
+}
