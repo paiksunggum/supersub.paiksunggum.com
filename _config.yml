@@ -22,7 +22,7 @@ title: 멀티모달 용병 스카우팅 플랫폼
 email: bsgum5373@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   생활체육 경기 영상에서 선수의 실력을 재고, 그 근거로 팀이 빈 자리에 맞는 용병을
-  찾는 플랫폼. 4인 팀 프로젝트이며, 이 사본은 백성검의 작업분을 함께 보여 줍니다.
+  찾는 플랫폼 개발 제안서입니다. 4인 팀으로 10주간 만들었습니다.
 baseurl: "" # supersub.paiksunggum.com 루트에 배포하므로 서브패스 없음
 url: "https://supersub.paiksunggum.com" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  paiksunggum
@@ -47,7 +47,7 @@ aux_links:
     - "https://github.com/pmhllll12/super-sub.cloud"
 aux_links_new_tab: true
 
-footer_content: "Super-Sub 팀 프로젝트 (박민호 · 백성검 · 정상호 · 정어진) &middot; 이 사본은 <a href=\"/내-역할/\">백성검의 작업분</a>을 함께 보여 줍니다 &middot; 원본 <a href=\"https://dev.supersub-ai.com\">dev.supersub-ai.com</a>"
+footer_content: "Super-Sub &middot; 박민호 · 백성검 · 정상호 · 정어진 &middot; <a href=\"/내-역할/\">백성검이 맡은 부분</a>"
 
 # Exclude from processing.
 # The following items will not be processed, by default.
