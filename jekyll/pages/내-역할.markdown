@@ -17,11 +17,10 @@ nav_order: 0
   </p>
 </header>
 
-<div class="role-stats">
-  <div><b>10주</b><span>기획부터 스토어 출시까지</span></div>
-  <div><b>27</b><span>화면 (앱 12 · 웹 15)</span></div>
-  <div><b>8</b><span>기능 갈래</span></div>
-  <div><b>994</b><span>앱 위젯·단위 시험</span></div>
+<div class="role-stats is-three">
+  <div><b>10주</b><span>기획부터 Play 출시까지</span></div>
+  <div><b>27</b><span>화면 — 앱 12 · 웹 15</span></div>
+  <div><b>994</b><span>앱 자동 시험 (전부 통과)</span></div>
 </div>
 
 <section class="role-sec">
@@ -31,7 +30,7 @@ nav_order: 0
       <h3>Flutter 앱 <em>전체</em></h3>
       <p>화면 설계부터 상태 관리 구조, 스토어 배포와 비공개 테스트 운영까지
       <b>처음부터 끝까지 혼자</b> 맡았습니다.</p>
-      <p class="role-card__meta">화면 12개 · 기능 8갈래 · 위젯·단위 시험 994개</p>
+      <p class="role-card__meta">화면 12개 · 자동 시험 994개</p>
     </div>
     <div class="role-card">
       <h3>Next.js 웹 <em>화면 전체</em></h3>
@@ -106,6 +105,34 @@ nav_order: 0
       <p>화면 종류로 자르면 한 기능을 고칠 때 폴더 네 개를 오갑니다. 기능으로 먼저 자르니 <b>한 갈래 안에서 끝납니다.</b></p>
     </div>
   </div>
+</section>
+
+<section class="role-sec">
+  <h2>시험을 994개 쓴 이유</h2>
+  <p class="role-lead">수를 채우려고 쓴 것이 아니라, <b>화면만 봐서는 안 보이는 것</b>을 잡으려고 썼습니다.
+  혼자 만드는 영역이라 사람 리뷰가 없어서, 시험이 그 자리를 대신합니다.</p>
+  <div class="role-grid3">
+    <div class="role-card">
+      <h3>눈에 안 보이는 회귀</h3>
+      <p>업로드에 <code>analyze</code> 인자를 아무도 안 넘겨, 앱에서 올린 영상이 전부 「분석 안 함」으로 들어갔습니다.
+      <b>업로드는 성공하고 리포트만 영영 안 옵니다</b> — 화면으로는 못 봅니다.</p>
+      <p class="role-card__meta">그 뒤로 시험이 <code>analyze: true</code> 가 실제로 실리는지 직접 봅니다. 일부러 <code>false</code> 로 되돌려 깨지는 것까지 확인했습니다.</p>
+    </div>
+    <div class="role-card">
+      <h3>규칙끼리 부딪히는 것</h3>
+      <p>시험이 <b>먼저 빨개져서 충돌을 잡아 준 적이 두 번</b> 있습니다 — 골키퍼 자리 잠금이 「전원 FW」를 깨뜨린 것,
+      종목 고정이 오채점 방지 규칙을 뒤집은 것.</p>
+      <p class="role-card__meta">사람이 먼저 알아채기 어려운 종류입니다. 두 규칙이 각각은 맞는데 같이 두면 어긋납니다.</p>
+    </div>
+    <div class="role-card">
+      <h3>결정을 붙들어 두기</h3>
+      <p>임시로 굳힌 값이 있으면 <b>되돌릴 자리를 시험이 기억</b>하게 뒀습니다. 나중에 상수만 바꾸고
+      고르는 자리를 안 되살리면 그 시험이 먼저 빨개집니다.</p>
+      <p class="role-card__meta">문서에만 적으면 읽히지 않습니다. 시험은 안 읽어도 걸립니다.</p>
+    </div>
+  </div>
+  <p class="role-note">🔴 다만 시험이 초록인데 실물에서 안 된 적도 있습니다 — jsdom 은 레이아웃을 안 재서
+  「화면 밖으로 밀려난 단추」를 못 봅니다. 그 뒤로 실제 브라우저를 붙여 <b>진짜 마우스·좌표</b>로 다시 잽니다.</p>
 </section>
 
 <section class="role-sec">

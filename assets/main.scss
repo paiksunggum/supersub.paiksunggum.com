@@ -2208,3 +2208,13 @@ html[data-theme="dark"] {
     padding: 0;
   }
 }
+
+// 수치가 셋일 때 (2026-09-30) — 「기능 갈래」를 걷었다. 만든 사람도 뜻을 되묻는 지표는
+// 처음 보는 사람에게 아무 뜻이 없다. 표준 지표가 아니라 폴더 수를 센 것이었다.
+.role-stats.is-three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 56rem) {
+  .role-stats.is-three { grid-template-columns: minmax(0, 1fr); }
+}
