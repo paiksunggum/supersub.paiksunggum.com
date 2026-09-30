@@ -2234,3 +2234,17 @@ html[data-theme="dark"] .role-card__skill {
   border-bottom-color: #33333b;
   color: $ss-sky-dark !important;
 }
+
+// 「대신 생각한 것」 — 왜 하필 이 방법이었는지. 다른 문단과 구분되게 한 칸 들인다
+.role-card__alt {
+  margin-top: 0.7rem !important;
+  padding-top: 0.7rem;
+  border-top: 1px dashed $role-line;
+  font-size: 0.8rem !important;
+  color: $role-soft !important;
+}
+
+html[data-theme="dark"] .role-card__alt {
+  border-top-color: #33333b;
+  color: #a6a6b2 !important;
+}

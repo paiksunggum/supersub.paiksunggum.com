@@ -52,6 +52,7 @@ nav_order: 0
         <li>Riverpod</li>
         <li>GoRouter</li>
         <li>Feature-first</li>
+        <li>REST API</li>
       </ul>
     </div>
     <div>
@@ -61,6 +62,7 @@ nav_order: 0
         <li>React</li>
         <li>TypeScript</li>
         <li>Tailwind CSS</li>
+        <li>REST API</li>
       </ul>
     </div>
     <div>
@@ -87,6 +89,8 @@ nav_order: 0
       관계없는 화면은 그대로 있습니다.</p>
       <p>덤으로 <b>화면 없이도 데이터를 만들 수 있습니다.</b> 시험에서 진짜 서버 대신 가짜를 끼우기 쉬워서,
       시험 994개가 이 덕을 봤습니다.</p>
+      <p class="role-card__alt"><b>대신 생각한 것</b> — 화면 안에만 값을 두는 방법(<code>setState</code>)은
+      여러 화면이 같은 값을 못 나눕니다. 화면이 있어야 값을 꺼내는 방식은 시험에서 가짜를 끼우기 번거롭습니다.</p>
     </div>
     <div class="role-card">
       <p class="role-card__skill">사용한 스킬 · GoRouter</p>
@@ -96,6 +100,8 @@ nav_order: 0
       <p>화면마다 「로그인했나?」를 따로 넣으면 <b>화면이 늘 때마다 하나씩 빠뜨립니다.</b>
       GoRouter 는 주소 목록을 한곳에 모아 두므로, 그 한곳에서 전부 거릅니다.</p>
       <p>웹(Next.js)도 주소로 화면을 찾습니다. 앱을 같은 방식으로 두니 <b>두 쪽을 같은 머리로</b> 다룹니다.</p>
+      <p class="role-card__alt"><b>대신 생각한 것</b> — 화면을 하나씩 쌓고 걷는 기본 방식(<code>Navigator</code>)은
+      화면마다 이동과 로그인 확인을 직접 부릅니다. 화면이 늘수록 빠뜨릴 자리가 늘어납니다.</p>
     </div>
     <div class="role-card">
       <p class="role-card__skill">사용한 스킬 · Feature-first</p>
@@ -104,6 +110,8 @@ nav_order: 0
       <p>「화면 폴더 · 데이터 폴더 · 모델 폴더」처럼 종류로 나누면 <b>폴더 네 개를 오갑니다.</b>
       기능으로 묶으니 <code>video</code> 폴더 하나만 열면 됩니다.</p>
       <p>기능이 여덟 갈래로 늘었는데 <b>서로 안 얽혔습니다.</b></p>
+      <p class="role-card__alt"><b>대신 생각한 것</b> — 종류로 나누는 방식은 처음엔 깔끔해 보이지만,
+      기능이 늘수록 한 기능의 코드가 여러 폴더에 흩어집니다.</p>
     </div>
   </div>
 </section>
