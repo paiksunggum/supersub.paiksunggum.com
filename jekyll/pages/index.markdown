@@ -20,18 +20,11 @@ nav_exclude: true
     </div>
 
     <nav class="home-browse" aria-label="둘러보기">
-      <dl>
-        <dt>왜 만드나</dt>
-        <dd><a href="/01-사업개요/">사업 개요</a> · <a href="/02-현황및문제정의/">현황 및 문제 정의</a> · <a href="/03-서비스제안/">서비스 제안</a></dd>
-        <dt>무엇을 요구하나</dt>
-        <dd><a href="/05-요구사항분석/">요구사항 분석</a></dd>
-        <dt>어떻게 설계했나</dt>
-        <dd><a href="/06-시스템설계/">시스템 설계</a> · <a href="/부록D-데이터베이스ERD/">데이터베이스 ERD</a></dd>
-        <dt>어떻게 계획했나</dt>
-        <dd><a href="/07-개발구현계획/">개발 구현 계획</a> · <a href="/08-테스트및검증계획/">테스트 및 검증 계획</a></dd>
-        <dt>어디까지 왔나</dt>
-        <dd><a href="/진행-현황/">진행 현황</a> · <a href="/관리-지표/">관리 지표</a> · <a href="/devlog/">개발 로그</a></dd>
-      </dl>
+      <div><span class="home-facts__k">왜 만드나</span><span class="home-facts__v"><a href="/01-사업개요/">사업 개요</a> · <a href="/02-현황및문제정의/">현황 및 문제 정의</a> · <a href="/03-서비스제안/">서비스 제안</a></span></div>
+      <div><span class="home-facts__k">무엇을 요구하나</span><span class="home-facts__v"><a href="/05-요구사항분석/">요구사항 분석</a></span></div>
+      <div><span class="home-facts__k">어떻게 설계했나</span><span class="home-facts__v"><a href="/06-시스템설계/">시스템 설계</a> · <a href="/부록D-데이터베이스ERD/">데이터베이스 ERD</a></span></div>
+      <div><span class="home-facts__k">어떻게 계획했나</span><span class="home-facts__v"><a href="/07-개발구현계획/">개발 구현 계획</a> · <a href="/08-테스트및검증계획/">테스트 및 검증 계획</a></span></div>
+      <div><span class="home-facts__k">어디까지 왔나</span><span class="home-facts__v"><a href="/진행-현황/">진행 현황</a> · <a href="/관리-지표/">관리 지표</a> · <a href="/devlog/">개발 로그</a></span></div>
     </nav>
     </div>
 
