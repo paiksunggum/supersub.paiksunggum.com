@@ -8,8 +8,11 @@ nav_exclude: true
 <div class="home-hero" markdown="0">
   <div class="home-hero__text">
     <p class="home-hero__eyebrow">Super-Sub · 개발 제안서</p>
-    <h1><span>AI 를 활용하여 풋살 영상을 분석 후 리포트를 만들고,</span><span>그 리포트를 기반으로 맞는 팀을 찾아주는 플랫폼</span></h1>
+    <h1><span>AI 를 활용하여 풋살 영상을 분석 후 리포트 작성,</span><span>작성된 리포트를 기반으로 맞는 팀과 용병을 찾아주는 플랫폼</span></h1>
 
+    <a class="home-cta" href="/내-역할/">내 역할 보기 →</a>
+
+    <div class="home-cards">
     <div class="home-facts">
       <div><span class="home-facts__k">기간</span><span class="home-facts__v">2026년 8월 20일 ~ 10월 27일 (10주)</span></div>
       <div><span class="home-facts__k">팀</span><span class="home-facts__v">백성검 · 박민호 · 정상호 · 정어진 (4명)</span></div>
@@ -17,8 +20,6 @@ nav_exclude: true
       <div><span class="home-facts__k">앱</span><span class="home-facts__v">Google Play 비공개 테스트 (1.0.2)</span></div>
       <div><span class="home-facts__k">코드</span><span class="home-facts__v"><a href="https://github.com/paiksunggum/super-sub.cloud">github.com/paiksunggum/super-sub.cloud</a></span></div>
     </div>
-
-    <a class="home-cta" href="/내-역할/">내 역할 보기 (백성검) →</a>
 
     <nav class="home-browse" aria-label="둘러보기">
       <h2>둘러보기</h2>
@@ -35,6 +36,7 @@ nav_exclude: true
         <dd><a href="/진행-현황/">진행 현황</a> · <a href="/관리-지표/">관리 지표</a> · <a href="/devlog/">개발 로그</a></dd>
       </dl>
     </nav>
+    </div>
   </div>
 
   <aside class="home-media" data-mode="app">
