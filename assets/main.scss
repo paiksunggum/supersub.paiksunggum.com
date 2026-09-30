@@ -1333,75 +1333,50 @@ html[data-theme="dark"] {
   }
 }
 
-// --- 표지 두 칸 · 고른 표시를 금색으로 (2026-09-30, 2차) --------------------------------
-// 바탕을 참고 박스(BRYZOS 제품 칸)의 은빛으로 바꾼다. 픽셀을 재니 #bcbcc8 였는데,
-// 🔴 그 밝기에서는 금색 링크(#7e6229)가 **3.05:1** 이라 못 읽는다(4.5 필요).
-// 색조(은회보라)는 그대로 두고 밝기만 올려 가장 어두운 단이 #e4e4ec 가 되게 했다 — 금색 4.5.
-// ⛔ 이 그라데이션을 참고 박스 원래 밝기로 내리지 말 것. 링크가 바로 안 읽히게 된다.
-.home-cards {
-  .home-facts,
-  .home-browse {
-    border: 0;
-    background: linear-gradient(140deg, #f4f4f8 0%, #e4e4ec 55%, #eeeef3 100%);
-    box-shadow: 0 2px 12px rgba(35, 30, 60, 0.07);
-    padding: 1.1rem 1.1rem 1.2rem;
-  }
 
-  // 줄은 검정이다(사용자 요청) — 옅은 회색은 이 바탕에서 아예 안 보였다
-  .home-facts > div {
-    border-bottom: 1px solid #000;
-  }
+// --- 고른 표시를 은색으로 (2026-09-30, 3차) ------------------------------------------
+// 🔴 두 칸(사실 표·둘러보기)은 **앞 판 그대로 되돌렸다** — 은빛 바탕·검정 줄·외곽선 제거를
+// 되돌렸다는 뜻이다(사용자: 「아까 전으로」). 「둘러보기」 제목만은 걷은 채로 둔다.
+//
+// 고른 표시는 금색이 탁해 보인다는 지적을 받아 앱의 **은색**으로 바꿨다.
+// 값은 flutter/lib/core/widgets/silver_edge.dart 의 #C9D4D8 · #9AA7AD 계열이다.
+// 🔴 원래 은색은 흰 면에서 #9AA7AD 가 2.47 이라 **글자로는 못 쓴다**(4.5 필요).
+//    테두리(3.0 기준)에는 #8b997f… 가 아니라 #8b979d(3.00)를, 글자에는 #6d787e(4.53)를 쓴다.
+// ⛔ 고른 단추 글자를 #9aa7ad 나 #c9d4d8 로 되돌리지 말 것 — 흰 알약 위에서 안 읽힌다.
+$ss-silver-line: #8b979d; // 테두리 — 흰 면 3.00
+$ss-silver-ink:  #6d787e; // 글자 — 흰 면 4.53
+$ss-silver-dark: #c9d4d8; // 다크 바탕용 — 10.58
 
-  .home-facts > div:last-child {
-    border-bottom: 0;
-  }
-}
-
-// 고른 표시를 보라 → 금색으로. 단추는 흰 알약에 금색 테가 둘린다.
-// 🔴 테두리는 장식이라 3:1 이면 되므로 앱 원래 금색(#a8894a, 흰 면 3.31)을 쓴다.
-//    글자는 본문이라 4.5 가 필요하므로 어두운 금색(#7e6229)을 쓴다.
 .home-media__tabs button[aria-selected="true"] {
-  border-color: $ss-gold-app;
+  border: 1px solid $ss-silver-line; // 얇게 한 줄만 둘린다
   background: #fff;
-  color: $ss-gold;
-  box-shadow: 0 0 0 1px $ss-gold-app, 0 1px 3px rgba(168, 137, 74, 0.28);
+  color: $ss-silver-ink;
+  box-shadow: 0 1px 3px rgba(35, 40, 45, 0.12);
 }
 
 .home-media__thumbs button.is-on {
   img {
-    border-color: $ss-gold-app;
-    box-shadow: 0 0 0 1px $ss-gold-app;
+    border-color: $ss-silver-line;
+    box-shadow: 0 0 0 1px $ss-silver-line;
   }
 
-  span { color: $ss-gold; }
+  span { color: $ss-silver-ink; }
 }
 
 html[data-theme="dark"] {
-  .home-cards {
-    .home-facts,
-    .home-browse {
-      border: 0;
-      background: linear-gradient(140deg, #26262e 0%, #1d1d24 55%, #23232b 100%);
-      box-shadow: none;
-    }
-
-    .home-facts > div { border-bottom-color: #0b0b0e; }
-    .home-facts > div:last-child { border-bottom: 0; }
-  }
-
   .home-media__tabs button[aria-selected="true"] {
-    border-color: $ss-gold-dark;
+    border: 1px solid $ss-silver-dark;
     background: #212128;
-    color: $ss-gold-dark;
-    box-shadow: 0 0 0 1px $ss-gold-dark;
+    color: $ss-silver-dark;
+    box-shadow: none;
   }
 
   .home-media__thumbs button.is-on {
     img {
-      border-color: $ss-gold-dark;
-      box-shadow: 0 0 0 1px $ss-gold-dark;
+      border-color: $ss-silver-dark;
+      box-shadow: 0 0 0 1px $ss-silver-dark;
     }
 
-    span { color: $ss-gold-dark; }
+    span { color: $ss-silver-dark; }
   }
 }
