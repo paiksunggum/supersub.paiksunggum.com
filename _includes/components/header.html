@@ -1,0 +1,16 @@
+{%- comment -%}
+  테마(just-the-docs/_includes/components/header.html)를 덮어쓴 것이다 (2026-09-30).
+  검색칸을 끄고(_config.yml 의 search_enabled: false) 그 자리에 사이트 제목을 가운데로 놓는다.
+  왼쪽 사이드바 위에는 「HOME」만 남는다(components/sidebar.html).
+  🔴 제목은 <div> 가 아니라 링크다 — 누르면 표지로 간다.
+{%- endcomment -%}
+<div id="main-header" class="main-header">
+  {% if site.search_enabled != false %}
+    {% include components/search_header.html %}
+  {% endif %}
+  <a class="header-site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+  {% include header_custom.html %}
+  {% if site.aux_links %}
+    {% include components/aux_nav.html %}
+  {% endif %}
+</div>

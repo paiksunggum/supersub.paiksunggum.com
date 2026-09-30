@@ -1,0 +1,27 @@
+{%- comment -%}
+  테마(just-the-docs/_includes/components/sidebar.html)를 덮어쓴 것이다 (2026-09-30).
+  바꾼 것은 둘뿐이고 나머지는 원본 그대로다 — 테마를 올릴 때 원본과 견줘 보라.
+  1) 왼쪽 위 이름을 사이트 제목 대신 「HOME」으로 (사용자 요청). 사이트 제목은 머리칸 가운데로 옮겼다
+     (components/header.html 도 함께 덮어썼다)
+  2) 「This site uses Just the Docs」 기본 문구를 걷었다
+{%- endcomment -%}
+
+<header class="side-bar">
+  <div class="site-header">
+    <a href="{{ '/' | relative_url }}" class="site-title lh-tight">HOME</a>
+    <button id="menu-button" class="site-button btn-reset" aria-label="Menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" class="icon" aria-hidden="true"><use xlink:href="#svg-menu"></use></svg>
+    </button>
+  </div>
+
+  {% include_cached components/site_nav.html %}
+
+  <div class="d-md-block d-none site-footer">
+  {% capture nav_footer_custom %}
+    {%- include nav_footer_custom.html -%}
+  {% endcapture %}
+  {% if nav_footer_custom != "" %}
+    {{ nav_footer_custom }}
+  {% endif %}
+  </div>
+</header>
