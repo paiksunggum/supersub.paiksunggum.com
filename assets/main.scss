@@ -1393,18 +1393,19 @@ html[data-theme="dark"] {
 //    #9aa7ad(2.6)나 #c9d4d8(1.4)까지 밝히면 그 순간 글자가 사라진다 — 밝히지 말 것.
 // 🔴 움직임을 싫어하는 설정(prefers-reduced-motion)에서는 멈추고 검정으로 둔다.
 .site-title {
-  background: linear-gradient(100deg, #15151a 0%, #15151a 32%, #7c888e 50%, #15151a 68%, #15151a 100%);
-  background-size: 300% 100%;
+  // 🔴 repeating-linear-gradient 를 **가로(90deg)** 로 깐다. 기울이면 x 방향 주기가
+  // 각도에 따라 달라져 한 바퀴 돌 때 살짝 튄다. 가로면 주기(200px)만큼 밀면 정확히 제자리다.
+  background-image: repeating-linear-gradient(90deg,
+    #15151a 0px, #15151a 70px, #7c888e 100px, #15151a 130px, #15151a 200px);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: ss-sheen 9s ease-in-out infinite;
+  animation: ss-sheen 3.6s linear infinite; // 쉬지 않고 한 방향으로 흐른다
 }
 
 @keyframes ss-sheen {
-  0%   { background-position: 100% 0; }
-  50%  { background-position: 0 0; }
-  100% { background-position: 100% 0; }
+  from { background-position: 0 0; }
+  to   { background-position: 200px 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1416,8 +1417,8 @@ html[data-theme="dark"] {
 }
 
 html[data-theme="dark"] .site-title {
-  background: linear-gradient(100deg, #f0eff6 0%, #f0eff6 32%, #8d99a0 50%, #f0eff6 68%, #f0eff6 100%);
-  background-size: 300% 100%;
+  background-image: repeating-linear-gradient(90deg,
+    #f0eff6 0px, #f0eff6 70px, #8d99a0 100px, #f0eff6 130px, #f0eff6 200px);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1473,4 +1474,85 @@ html[data-theme="dark"] .home-hero__text > .home-cta {
       0 14px 32px -12px rgba(216, 144, 132, 0.6),
       0 8px 22px -10px rgba(210, 133, 167, 0.55);
   }
+}
+
+// --- 표지 다듬기 (2026-09-30, 5차) ---------------------------------------------------
+// 링크를 금색 → 스카이블루로. 🔴 밝은 하늘색(#38bdf8 2.14 · #0ea5e9 2.77)은 흰 면에서
+// 못 읽는다. 같은 계열에서 어둡게 내린 #0b6fa4 를 쓴다 — 흰 면 5.49 · 칸 바탕 끝 4.61.
+// ⛔ #38bdf8 나 #0ea5e9 로 밝히지 말 것.
+$ss-sky:      #0b6fa4;
+$ss-sky-dark: #7dd3fc; // 다크 칸(#1e1e24) 위 9.95
+
+.home-cards a,
+.home-facts a,
+.home-browse a {
+  color: $ss-sky;
+
+  &:hover { color: #08537b; }
+}
+
+html[data-theme="dark"] {
+  .home-cards a,
+  .home-facts a,
+  .home-browse a {
+    color: $ss-sky-dark;
+
+    &:hover { color: #b3e6fe; }
+  }
+}
+
+// 가름줄 — 두 칸 모두에 같은 줄을 두고, 색을 조금 더 준다(전 #f0f0f3 은 거의 안 보였다)
+$ss-rule: rgba(35, 30, 60, 0.14);
+
+.home-cards {
+  .home-facts > div {
+    border-bottom: 1px solid $ss-rule;
+  }
+
+  .home-facts > div:last-child {
+    border-bottom: 0;
+  }
+
+  // 🔴 「둘러보기」는 dl 한 단이라 줄을 dt 위에 둔다. 첫 dt 에는 두지 않는다 —
+  // 칸 맨 위에 줄이 생겨 테두리처럼 보인다.
+  .home-browse dt {
+    padding-top: 0.55rem;
+    border-top: 1px solid $ss-rule;
+  }
+
+  .home-browse dt:first-of-type {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .home-browse dd {
+    padding-bottom: 0.15rem;
+  }
+}
+
+html[data-theme="dark"] .home-cards {
+  .home-facts > div { border-bottom-color: rgba(255, 255, 255, 0.13); }
+  .home-facts > div:last-child { border-bottom: 0; }
+  .home-browse dt { border-top-color: rgba(255, 255, 255, 0.13); }
+  .home-browse dt:first-of-type { border-top: 0; }
+}
+
+// 눈썹줄과 큰 제목을 키운다
+.home-hero__text {
+  .home-hero__eyebrow {
+    font-size: 0.95rem !important;
+    line-height: 1.55;
+  }
+
+  // 🔴 vw(화면 폭)가 아니라 cqw(**글 칸 폭**)를 따른다. 화면이 넓어도 오른쪽 사진 기둥이
+  // 자리를 먹으면 글 칸은 좁다 — 1210px 에서 글 칸이 570px 까지 줄어 둘째 줄이 접혔다.
+  // 칸을 기준으로 재야 어느 폭에서도 두 줄로 남는다.
+  h1 {
+    font-size: clamp(0.78rem, 3.75cqw, 1.62rem) !important;
+  }
+}
+
+// 위 h1 의 cqw 가 재는 기준을 글 칸으로 잡아 준다
+.home-hero__text {
+  container-type: inline-size;
 }
