@@ -1392,44 +1392,9 @@ html[data-theme="dark"] {
 // 🔴 가장 밝은 단이 #7c888e 다. 사이드바(#e9eaf2) 위에서 3.5:1 이라 큰 글자 기준(3.0)을 넘는다.
 //    #9aa7ad(2.6)나 #c9d4d8(1.4)까지 밝히면 그 순간 글자가 사라진다 — 밝히지 말 것.
 // 🔴 움직임을 싫어하는 설정(prefers-reduced-motion)에서는 멈추고 검정으로 둔다.
-.site-title {
-  // 🔴 repeating-linear-gradient 를 **가로(90deg)** 로 깐다. 기울이면 x 방향 주기가
-  // 각도에 따라 달라져 한 바퀴 돌 때 살짝 튄다. 가로면 주기(200px)만큼 밀면 정확히 제자리다.
-  background-image: repeating-linear-gradient(90deg,
-    #15151a 0px, #15151a 70px, #7c888e 100px, #15151a 130px, #15151a 200px);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: ss-sheen 3.6s linear infinite; // 쉬지 않고 한 방향으로 흐른다
-}
 
-@keyframes ss-sheen {
-  from { background-position: 0 0; }
-  to   { background-position: 200px 0; }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .site-title {
-    animation: none;
-    background: none;
-    -webkit-text-fill-color: #15151a;
-  }
-}
 
-html[data-theme="dark"] .site-title {
-  background-image: repeating-linear-gradient(90deg,
-    #f0eff6 0px, #f0eff6 70px, #8d99a0 100px, #f0eff6 130px, #f0eff6 200px);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html[data-theme="dark"] .site-title {
-    background: none;
-    -webkit-text-fill-color: #f0eff6;
-  }
-}
 
 // 눈썹줄 — 「개발 제안서」를 아랫줄로
 .home-hero__eyebrow span {
@@ -1634,5 +1599,50 @@ html[data-theme="dark"] .home-cards {
   .home-facts .home-facts__k,
   .home-browse dt {
     color: #a6a6b4;
+  }
+}
+
+// --- 표지 다듬기 (2026-09-30, 7차) ---------------------------------------------------
+
+// 「HOME」은 그냥 검정이다. 은빛 흐름을 걷었다(사용자 요청).
+// 🔴 올렸을 때 색이 변하지 않게 hover 까지 같은 값으로 못박는다. 테마가 링크에 hover 색과
+//    background-image(밑줄 그라데이션)를 거는데, 앞 판은 그 위에 background-clip: text 를
+//    쓰고 있어서 **마우스를 올리면 글자가 흰색으로 사라졌다**.
+.site-title,
+.site-title:hover,
+.site-title:focus {
+  background: none !important;
+  background-image: none !important;
+  -webkit-text-fill-color: #15151a;
+  color: #15151a !important;
+  animation: none;
+  text-decoration: none !important;
+}
+
+html[data-theme="dark"] {
+  .site-title,
+  .site-title:hover,
+  .site-title:focus {
+    -webkit-text-fill-color: #f0eff6;
+    color: #f0eff6 !important;
+  }
+}
+
+// 두 칸은 완전 흰색이다 — 그라데이션을 걷었다(사용자 요청)
+.home-cards {
+  .home-facts,
+  .home-browse {
+    border: 0;
+    background: #fff;
+    box-shadow: 0 3px 16px rgba(35, 30, 60, 0.09);
+  }
+}
+
+html[data-theme="dark"] .home-cards {
+  .home-facts,
+  .home-browse {
+    border: 0;
+    background: #1e1e24;
+    box-shadow: none;
   }
 }
