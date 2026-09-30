@@ -1,0 +1,304 @@
+---
+layout: default
+title: 시스템 설계
+permalink: /06-시스템설계/
+parent: 설계
+nav_order: 1
+---
+
+## 1) 시스템 구성도
+
+> **2026-09-23 실물 기준으로 다시 썼다**(처음 판은 09-10). 각 부분을 누가 만들었는지는
+> [프로젝트 전체 그림]({{ "/10-프로젝트전체그림/" | relative_url }})의 그림 1에, 처음 판에서
+> 무엇이 달라졌는지는 [진행 현황]({{ "/진행-현황/" | relative_url }}) 2절에 있다.
+
+Super-Sub 는 **앞단 + 세 계층 + 비동기 분석 워커** 구조다. 화면(웹·앱)은 API 서버 하나를
+창구로 삼고, 무거운 영상 분석은 GPU 인스턴스가 대기열에서 작업을 가져가 따로 처리한다.
+원본 영상은 **API 서버를 거치지 않고** 객체 저장소로 직접 오간다.
+
+<figure class="doc-figure"><svg viewBox="0 0 740 404" width="740" role="img" aria-label="시스템 구성도: 사용자는 웹 서버나 앱으로 들어오고, 요청은 앞단(Cloudflare, nginx)을 지나 k3s 위의 API 서버로 간다. API 서버는 같은 서버의 PostgreSQL과 외부 Gemini를 쓴다. 원본 영상은 사용자가 객체 저장소에 직접 올리고, GPU 분석 워커는 앞단을 거쳐 작업을 가져가며 저장소와 원본·산출물을 주고받는다." font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','Apple SD Gothic Neo','Noto Sans KR',sans-serif" style="max-width:100%;height:auto;display:block"><defs><marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c5962"/></marker></defs><g><title>사용자 — 브라우저·휴대폰</title><rect x="10" y="176" width="80" height="50" rx="25" fill="none" stroke="#5c5962" stroke-width="1.5"/><text x="50" y="206" text-anchor="middle" font-size="13.5" fill="#27262b" font-weight="600">사용자</text></g><g><title>웹 서버 — Next.js · Vercel API 대리 호출 · 챗봇</title><rect x="115" y="100" width="160" height="66" rx="6" fill="#f6f5f1" stroke="#5c5962" stroke-width="1.5"/><text x="195.0" y="122" text-anchor="middle" font-size="14" fill="#27262b" font-weight="600">웹 서버</text><text x="195.0" y="139" text-anchor="middle" font-size="11.5" fill="#5c5962">Next.js · Vercel</text><text x="195.0" y="154" text-anchor="middle" font-size="11" fill="#5c5962">API 대리 호출 · 챗봇</text></g><g><title>앱 — Flutter 실서버 연결</title><rect x="115" y="236" width="160" height="62" rx="6" fill="#f6f5f1" stroke="#5c5962" stroke-width="1.5"/><text x="195.0" y="258" text-anchor="middle" font-size="14" fill="#27262b" font-weight="600">앱</text><text x="195.0" y="275" text-anchor="middle" font-size="11.5" fill="#5c5962">Flutter</text><text x="195.0" y="290" text-anchor="middle" font-size="11" fill="#5c5962">실서버 연결</text></g><g><title>객체 저장소 — AWS S3 원본 · 분석 산출물</title><rect x="315" y="10" width="150" height="62" rx="6" fill="#f6f5f1" stroke="#5c5962" stroke-width="1.5"/><text x="390.0" y="32" text-anchor="middle" font-size="14" fill="#27262b" font-weight="600">객체 저장소</text><text x="390.0" y="49" text-anchor="middle" font-size="11.5" fill="#5c5962">AWS S3</text><text x="390.0" y="64" text-anchor="middle" font-size="11" fill="#5c5962">원본 · 분석 산출물</text></g><g><title>앞단 — Cloudflare → nginx TLS · 봇 차단</title><rect x="315" y="160" width="150" height="62" rx="6" fill="#f6f5f1" stroke="#5c5962" stroke-width="1.5"/><text x="390.0" y="182" text-anchor="middle" font-size="14" fill="#27262b" font-weight="600">앞단</text><text x="390.0" y="199" text-anchor="middle" font-size="11.5" fill="#5c5962">Cloudflare → nginx</text><text x="390.0" y="214" text-anchor="middle" font-size="11" fill="#5c5962">TLS · 봇 차단</text></g><g><title>Gemini — 외부 LLM 임베딩 · 챗봇</title><rect x="315" y="320" width="150" height="62" rx="6" fill="#f6f5f1" stroke="#5c5962" stroke-width="1.5"/><text x="390.0" y="342" text-anchor="middle" font-size="14" fill="#27262b" font-weight="600">Gemini</text><text x="390.0" y="359" text-anchor="middle" font-size="11.5" fill="#5c5962">외부 LLM</text><text x="390.0" y="374" text-anchor="middle" font-size="11" fill="#5c5962">임베딩 · 챗봇</text></g><g><title>GPU 분석 워커 — g4dn · 쓸 때만 켬 자세 추출 → 채점 → 리포트</title><rect x="530" y="10" width="195" height="62" rx="6" fill="#f6f5f1" stroke="#5c5962" stroke-width="1.5"/><text x="627.5" y="32" text-anchor="middle" font-size="14" fill="#27262b" font-weight="600">GPU 분석 워커</text><text x="627.5" y="49" text-anchor="middle" font-size="11.5" fill="#5c5962">g4dn · 쓸 때만 켬</text><text x="627.5" y="64" text-anchor="middle" font-size="11" fill="#5c5962">자세 추출 → 채점 → 리포트</text></g><g><title>API 서버 — FastAPI · k3s 7개 도메인 · 인증</title><rect x="530" y="160" width="195" height="62" rx="6" fill="#f6f5f1" stroke="#5c5962" stroke-width="1.5"/><text x="627.5" y="182" text-anchor="middle" font-size="14" fill="#27262b" font-weight="600">API 서버</text><text x="627.5" y="199" text-anchor="middle" font-size="11.5" fill="#5c5962">FastAPI · k3s</text><text x="627.5" y="214" text-anchor="middle" font-size="11" fill="#5c5962">7개 도메인 · 인증</text></g><g><title>DB — PostgreSQL 18 + pgvector API 서버와 같은 서버</title><rect x="530" y="320" width="195" height="62" rx="6" fill="#f6f5f1" stroke="#5c5962" stroke-width="1.5"/><text x="627.5" y="342" text-anchor="middle" font-size="14" fill="#27262b" font-weight="600">DB</text><text x="627.5" y="359" text-anchor="middle" font-size="11.5" fill="#5c5962">PostgreSQL 18 + pgvector</text><text x="627.5" y="374" text-anchor="middle" font-size="11" fill="#5c5962">API 서버와 같은 서버</text></g><path d="M90,192 L113,150" fill="none" stroke="#5c5962" stroke-width="1.5" marker-end="url(#m)"/><path d="M90,212 L113,262" fill="none" stroke="#5c5962" stroke-width="1.5" marker-end="url(#m)"/><path d="M275,142 L313,180" fill="none" stroke="#5c5962" stroke-width="1.5" marker-end="url(#m)"/><text x="300" y="132" text-anchor="middle" font-size="11" fill="#5c5962">대리 호출</text><path d="M275,262 L313,205" fill="none" stroke="#5c5962" stroke-width="1.5" marker-end="url(#m)"/><text x="302" y="250" text-anchor="middle" font-size="11" fill="#5c5962">호출</text><path d="M465,191 L528,191" fill="none" stroke="#5c5962" stroke-width="1.5" marker-end="url(#m)"/><text x="496" y="183" text-anchor="middle" font-size="11" fill="#5c5962">전달</text><path d="M627,222 L627,318" fill="none" stroke="#5c5962" stroke-width="1.5" marker-end="url(#m)"/><text x="635" y="275" text-anchor="start" font-size="11" fill="#5c5962">읽기·쓰기</text><path d="M540,222 L467,340" fill="none" stroke="#5c5962" stroke-width="1.5" marker-end="url(#m)"/><text x="500" y="298" text-anchor="start" font-size="11" fill="#5c5962">임베딩</text><path d="M50,176 L50,41 L313,41" fill="none" stroke="#5c5962" stroke-width="1.5" marker-end="url(#m)"/><text x="180" y="33" text-anchor="middle" font-size="11" fill="#5c5962">원본 직접 업로드 · 200MB·60초 이하</text><path d="M528,41 L467,41" fill="none" stroke="#5c5962" stroke-width="1.5" marker-end="url(#m)" marker-start="url(#m)"/><text x="497" y="66" text-anchor="middle" font-size="11" fill="#5c5962">원본·산출물</text><path d="M560,72 L440,158" fill="none" stroke="#5c5962" stroke-width="1.5" marker-end="url(#m)"/><text x="512" y="128" text-anchor="start" font-size="11" fill="#5c5962">작업 가져가기 · 완료 보고</text><text x="10" y="396" text-anchor="start" font-size="11.5" fill="#27262b">챗봇 대화는 웹 서버가 Gemini 를 직접 부른다(선 생략)</text></svg><figcaption class="doc-figure-caption">그림 6-1. 시스템 구성도(2026-09-23 실물). 원본 영상은 API 서버를 거치지 않고 저장소로 직접 가고, 무거운 분석은 GPU 워커가 대기열에서 가져가 따로 처리한다. 워커도 API 를 부를 때 앞단을 지난다.</figcaption></figure>
+
+### 구성 요소
+
+| 요소 | 역할 | 핵심 기술 | 배치 |
+|---|---|---|---|
+| 웹 | 화면. API 호출은 브라우저가 아니라 **웹 서버가 대신** 하고, 챗봇 대화도 여기서 처리 | Next.js 16 · React 19 | Vercel |
+| 모바일 앱 | 카드·영상 업로드·스쿼드·팀. 웹과 같은 API 로 **실서버에 연결**(09-23) | Flutter | 스토어 배포 전 |
+| 앞단 | TLS 종료 · 프록시 · 봇 차단 | Cloudflare · nginx · Let's Encrypt | 클라우드 서버 앞 |
+| API 서버 | 인증·업무 로직·조회. 도메인 **7개**(사용자·팀 · 카드 · 영상 분석 · 매칭 · 평가·신뢰 · 과금 · 알림)로 나누고, 도메인끼리 코드를 가져다 쓰지 못하게 검사로 강제 | Python · FastAPI · SQLAlchemy | 클라우드 서버의 **k3s** (AWS `ap-northeast-2`) |
+| 관계형 DB | 사용자·팀·카드·영상·분석 결과·매칭·평가·과금·알림. 스키마는 마이그레이션으로 관리 | PostgreSQL 18 · Alembic | API 서버와 **같은 클라우드 서버** |
+| 벡터 색인 | **용병 검색**(사용자 임베딩 유사도). 선수 성향 비교용 벡터는 아직 채우지 않았다 | pgvector | 위 DB 확장 |
+| 외부 LLM | 용병 검색용 임베딩(API 서버) · 챗봇 대화(웹 서버) | Gemini | 외부 API |
+| 객체 저장소 | 원본 클립 · 분석 산출물(리포트·관절 데이터). 원본은 **사전 서명 URL** 로 직접 오감 (SFR-001 · PER-002) | AWS S3 | 클라우드 (리전 동일) |
+| GPU 분석 워커 | 대기열에서 작업을 가져가 분석(자세 추출 → 특징 → 루브릭 채점 → 리포트) · 분석 대상 검출 | Python · Transformers · 소형 LLM | GPU 인스턴스(g4dn.xlarge). **쓸 때만 켠다** — 켜고 끄기는 사람이 한다(09-18 자동 종료를 없앴다) |
+| 문서 사이트 | 이 제안서 | Jekyll (Just the Docs) | GitHub Pages (`dev.supersub-ai.com`) |
+| CI/CD | 백엔드 테스트(실제 DB 통합 검사 포함) · 백엔드 이미지 빌드·푸시 · Flutter 테스트 · 문서 배포 | GitHub Actions | — |
+
+파이프라인 구간별 세부 기술은 아래 3)절 「파이프라인 기술 스택」, 판정 모델
+선정 근거는 4)절 「모델 선정」에 있다.
+
+### 클립 한 건이 리포트가 되기까지
+
+1. 화면이 **업로드 자리**(사전 서명 URL)를 API 서버에 요청한다.
+2. 원본 클립을 **객체 저장소에 직접** 올린다 — 서버 대역폭·저장소를 쓰지 않는다(PER-002).
+3. 클립을 **등록**하면 API 서버가 규칙(용량 200MB · 길이 60초 · 해상도 4K 이하 등)으로
+   검사한다. **반려돼도 등록 기록은 남긴다.** 통과하면 분석 작업을 대기열에 넣는다.
+   같은 사람이 **같은 내용을 다시 올리면** 새 작업을 만들지 않고 앞 결과를 가리킨다.
+4. GPU 워커가 API 서버를 불러 작업을 **가져가고**(대기 → 실행), 분석 산출물을 저장소에
+   올린 뒤 **완료를 보고**한다. 보고 없이 30분 멈춘 작업은 한 번은 대기열로 되돌리고,
+   두 번째는 실패로 끝낸다.
+5. API 서버가 워커의 **리포트 봉투**(규격을 계약으로 고정한 JSON)를 읽어 DB에 적재한다.
+6. 본인에게는 리포트 전체를, 남에게는 **등급·카드 불릿 같은 좁은 칸만** 보여 준다.
+   추천 판과 매칭이 그 값을 쓴다.
+
+> **상태:** 1\~6 구현됨(2026-09-17). 선수 성향 비교용 벡터는 아직이다.
+
+### 배포 형태
+
+API 서버·DB·객체 저장소는 클라우드(AWS `ap-northeast-2`)에 둔다. API 서버는 클라우드
+서버 위 **k3s** 에서 컨테이너로 돌고(2026-09-11 서비스 관리자에서 전환), DB는 같은 서버에
+직접 설치돼 있다. 그 앞에 **Cloudflare 프록시와 nginx** 가 있고, GPU 워커도 같은 공개
+경로로 API 서버를 부른다 — 그래서 앞단 규칙이 워커를 막으면 백엔드 로그에 흔적 없이 분석이
+멈춘다(2026-09-16 실제로 겪었다). 웹은 Vercel 에, 분석 워커는 쓸 때만 켜는 별도 GPU
+인스턴스에 둔다. 배포 절차·롤백 런북은 개발 저장소 문서로 관리한다.
+
+## 2) 데이터베이스 설계
+
+전체 ERD는 [부록 D: 데이터베이스 ERD]({{ "/부록D-데이터베이스ERD/" | relative_url }})에 기술한다.
+
+## 3) 영상 분석 파이프라인 설계
+
+측정 단계를 담당하며, 언어 모델이 개입하지 않는 결정론적 구간이다. 같은 영상은
+언제나 같은 수치를 산출해야 한다(산출 버전을 함께 기록한다).
+
+### 파이프라인 기술 스택
+
+| 구간 | 도구 | 선정 사유 |
+|---|---|---|
+| 프레임 처리 | OpenCV | 디코딩·리사이즈·샘플링 |
+| 사람 검출 | Transformers RT-DETR (`rtdetr_r50vd_coco_o365`) | ViTPose가 top-down 방식이라 사람 박스가 선행되어야 함 |
+| 포즈 추정 | Transformers ViTPose (`vitpose-base-simple`) | COCO-17 키포인트, 필수 투입자원(Transformers) 범위 안 |
+| 수치 계산 | NumPy | 각도·속도·궤적 |
+
+필수 투입자원 목록에 MediaPipe가 없어 **OpenCV + Transformers**로 구성했다.
+포즈 추정기는 GPU를 쓰지만 4)절의 판정 모델과 **동시에 올리지 않는다** — 추출이
+끝나면 모델을 해제하고 VRAM을 비운 뒤 판정 단계로 넘어간다(8GB 제약).
+
+파이프라인의 입출력 규격(COCO-17 × 프레임)을 고정해 두어 추정기를 교체해도
+후속 단계에 영향을 주지 않도록 한다.
+
+### 처리 단계
+
+**(A) 포즈 추출** — 원본 프레임을 30fps로 다운샘플링하고 프레임별 **COCO-17
+관절** 좌표와 검출 신뢰도를 추출한다. 처음에는 절반인 초당 15장이었는데, 임팩트처럼 짧은
+순간의 각속도 피크가 프레임 사이로 빠져 같은 영상이 촬영 프레임레이트에 따라
+다른 점수를 받았다. 다중 인원이 포착된 영상은 **사용자가 대상 선수를 지정할 수
+있고**, 지정이 없을 때만 가장 큰 사람 박스를 쓴다 — 관중이나 배경 인물이 더
+크게 잡히는 구도가 실제로 있었고, 그래서 자동 규칙 하나에 기대지 않는다.
+지정한 대상을 끝까지 따라갔는지도 **결과에 함께 싣는다**(따라가다 다른 사람으로
+바뀐 의심이 있으면 그렇게 표시한다).
+
+**(B) 정규화** — 어깨 너비로 스케일을 맞추고 골반 중심을 원점으로 이동시킨다.
+이 단계를 생략하면 촬영 거리에 따라 같은 자세의 수치가 달라진다.
+
+**(C) 구간 분할** — 각속도의 부호 전환과 극값을 이용해 준비·임팩트·마무리
+구간을 나눈다. 규칙 기반으로 시작하고, 종목별로 정확도가 부족하면 소규모
+분류기를 붙인다. 이 단계에 언어 모델을 쓰지 않는다.
+
+**(D) 특징 산출** — 구간별 관절 각도, 각속도 피크, 무게중심 낙차, 좌우
+비대칭도, 구간 소요 시간을 계산한다.
+
+```python
+def joint_angle(a, b, c):
+    """b를 꼭짓점으로 하는 세 점의 각도 (도)."""
+    ba, bc = a - b, c - b
+    cos = np.dot(ba, bc) / (np.linalg.norm(ba) * np.linalg.norm(bc) + 1e-8)
+    return float(np.degrees(np.arccos(np.clip(cos, -1.0, 1.0))))
+```
+
+산출된 항목은 `metric_definition`에 정의된 항목별로 `analysis_metric_value`에
+한 행씩 적재한다. 지표 항목이 종목마다 다르므로 컬럼을 고정하지 않는다.
+
+### 신뢰도 처리
+
+관절이 가려지거나 모션 블러가 심하면 좌표가 튄다. 검출 신뢰도가 임계값 미만인
+프레임은 제외하고 시간축 스무딩을 적용한다. 유효 프레임 비율이 기준에 미달하면
+분석을 중단하고 재촬영을 요청한다. 낮은 품질의 입력으로 산출한 점수는 근거가
+없으므로 제공하지 않는다.
+
+## 4) AI 에이전트 처리 흐름 설계
+
+판단 단계를 담당한다. 측정값과 채점 루브릭을 입력받아 항목별 등급과 근거를
+산출하며, 총점 계산은 하지 않는다.
+
+### 모델 선정
+
+개발 환경의 GPU는 **RTX 3050 (VRAM 8192 MiB, 상시 점유분 제외 약 7.4GB)** 이다.
+아래 수치는 추정이 아니라 실측이다(`agent/scripts/spike_exaone.py`).
+
+| 후보 | 크기 | 코드 경로 | 판정 |
+|---|---|---|---|
+| EXAONE 4.5 33B (VL) | 33B | 네이티브 | 불가 — 4bit로도 약 19GB |
+| EXAONE 4.0 32B | 32B | 네이티브 | 불가 — 동일 |
+| EXAONE 3.5 7.8B / 2.4B | 7.8B / 2.4B | 원격 코드 | **보류** — 아래 참고 |
+| **EXAONE 4.0 1.2B** | 1.2B | **네이티브** | **채택** |
+
+**EXAONE 3.5 계열을 쓰지 못한 이유**는 VRAM이 아니라 의존성이다. 3.5는
+`trust_remote_code`로 자체 모델링 코드를 내려받는데, 그 코드가 특정
+transformers 버전 창에만 맞는다. transformers 4.x에서는
+`RopeParameters` import 실패, 5.15에서는 `create_causal_mask()`의 인자명이
+`input_embeds`→`inputs_embeds`로 바뀌어 `TypeError`가 난다. 버전을 고정하면
+쓸 수 있지만, 팀 전원이 재현해야 하는 환경에서 상류 변경에 깨지는 경로는
+피한다. 반면 **EXAONE 4.0/4.5는 transformers에 네이티브로 통합**되어 있어
+원격 코드가 필요 없다. 8GB에 들어가면서 네이티브인 것은 4.0 1.2B뿐이다.
+
+### 실측 결과
+
+| 항목 | 4bit NF4 | **bf16** |
+|---|---|---|
+| 가중치 VRAM | 927 MiB | 2,440 MiB |
+| 피크 VRAM | 970 MiB | 2,477 MiB |
+| 잔여 VRAM | 7,221 MiB | 5,714 MiB |
+| 적재 시간 | 44.2초 | **7.5초** |
+| 생성 속도 | 11.5 tok/s | **24.4 tok/s** |
+
+**양자화하지 않는다.** 1.2B는 bf16으로도 2.4GB뿐이라 8GB에 여유가 크고,
+4bit는 bitsandbytes 역양자화 오버헤드 때문에 적재가 6배, 생성이 2배 느리다.
+작은 모델에서 양자화는 손해다.
+
+잔여 VRAM이 5.7GB 남는다는 것은 **모델 규모를 올릴 여지가 크다**는 뜻이다.
+정식 서비스에서 24GB GPU로 32B를 올리기 전에, 8GB 안에서 더 큰 네이티브
+모델이 나오면 우선 검토한다.
+
+이 선택에서 파생되는 두 가지 결정이 있다.
+
+**비전 모델을 쓰지 않는다.** EXAONE 계열에서 비전-언어 모델은 4.5의 33B뿐이며
+8GB에 적재할 수 없다. 따라서 에이전트는 키프레임 이미지를 보지 못하고
+**수치만으로 판정한다.** 이는 3)절 파이프라인의 중요도를 높인다. 측정값에 없는
+정보는 판정에 영원히 반영되지 않으므로, 특징 항목을 충분히 확보하고 시선·표정처럼
+수치화할 수 없는 항목은 루브릭에서 제외한다. 역설적으로 모든 판정 근거가 재현
+가능한 수치에서 나오므로 시스템의 재현성은 오히려 유리해진다.
+
+**포즈 모델과 판정 모델을 동시에 올리지 않는다.** 포즈 추출을 모두 끝내고
+GPU를 비운 뒤 판정 모델을 적재한다.
+
+### 서빙 구성
+
+필수 투입자원 목록에 llama.cpp·Ollama가 없으므로 **Hugging Face Transformers**로
+직접 적재한다. 모델이 2.4GB뿐이라 별도 서빙 서버 없이 프로세스 내에서 다룬다.
+정식 서비스 단계에서 24GB 이상 GPU로 옮길 때 vLLM 도입을 검토하되, 요청 스키마와
+루브릭이 동일하므로 판정 백엔드 교체만으로 전환된다.
+
+### 출력 스키마 강제
+
+응답 형식을 제약 디코딩(`outlines`)으로 강제한다. "JSON으로 출력하라"고 지시하는
+것이 아니라 스키마에 맞지 않는 토큰을 생성 시점에 차단한다.
+
+**이 방식이 필수임은 실측으로 확인됐다.** 강제 없이 생성시키면 모델이 응답을
+마크다운 코드펜스로 감싸고 `reasoning` 같은 임의 키를 쓴다 — JSON 파싱이 실패한다.
+
+### 스키마 설계가 판정 정확도를 바꾼다
+
+제약 디코딩은 스키마에 적힌 **순서대로** 토큰을 생성한다. 따라서 필드 배치가
+곧 사고 순서가 된다. 같은 모델·같은 입력으로 측정한 결과다.
+
+| 스키마 구성 | 결과 |
+|---|---|
+| `grade` 먼저 | **0등급 (오답)** — 근거를 따지기 전에 등급부터 확정 |
+| `evidence` → `grade` 로 순서만 변경 | **0등급 (오답)** — evidence가 수치를 되풀이할 뿐 대조하지 않음 |
+| **`comparison`(대조 추론) 필드 추가** | **1등급 (정답)** |
+
+측정값 171.3도에 대해 평문 생성은 "165도 초과 → 1등급"으로 맞게 추론했는데,
+`grade` 우선 스키마는 0등급을 냈다. 순서를 바꾸는 것만으로는 부족했고,
+**등급별 기준을 하나씩 대조하는 필드를 스키마에 명시**해야 정답이 나왔다.
+
+```json
+{
+  "comparison": "X는 171.3도다. 2등급 기준 140~165도를 벗어난다.
+                 1등급 기준 165도 초과에 해당한다. 따라서 1등급.",
+  "evidence":   "측정값 knee_angle_at_impact: 171.3도",
+  "metric_ref": "knee_angle_at_impact",
+  "grade":      1
+}
+```
+
+`comparison`은 사용자에게 노출하지 않는 중간 산출물이며, 소형 모델에서 이 필드가
+사실상 사고 과정 역할을 한다. `metric_ref`도 이 필드를 넣은 뒤에야 정확해졌다
+(그 전에는 무관한 `impact_frame`을 근거로 지목했다).
+
+생성은 그리디 디코딩(`do_sample=False`)으로 고정한다. 샘플링을 켜면 같은
+입력에서 다른 등급이 나온다.
+
+### 소형 모델 보완 전략
+
+1.2B급은 루브릭 전체를 한 번에 판정할 만큼 지시 준수력이 높지 않다. 위
+`comparison` 필드에 더해 세 가지로 보완한다.
+
+**항목별 분해 호출** — 루브릭 항목 하나당 한 번씩 호출한다. 각 호출의 컨텍스트가
+짧아져 정확도가 오른다. 자체 호스팅이라 호출 수 증가에 따른 비용이 없다.
+
+**앵커 예시 내장** — 등급마다 실제 측정값 예시를 2\~3개 루브릭에 첨부해 등급
+경계를 고정한다. 대형 모델에서는 선택 사항이지만 소형 모델에서는 필수다.
+
+**프리픽스 캐싱** — 시스템 프롬프트에 루브릭을 고정 배치하면 두 번째 호출부터
+해당 구간의 연산이 생략된다. 시스템 프롬프트에 타임스탬프나 영상 ID를 넣으면
+캐시가 무효화되므로 넣지 않는다.
+
+정확도가 여전히 부족하면 다음 순서로 대응한다. 순서를 건너뛰면 무엇이 효과를
+냈는지 판별할 수 없다.
+
+- 루브릭의 수치 임계값을 더 구체적으로 기술
+- 앵커 예시 추가
+- 8GB에 들어가는 더 큰 네이티브 모델로 상향 (잔여 VRAM 5.7GB)
+- 32B 모델로 상향 (GPU 교체 필요)
+- 골든셋 200건 이상 확보 후 LoRA 미세조정
+
+### 점수 합산
+
+```python
+def aggregate(judgments: dict, rubric: dict) -> dict:
+    weights = {c["id"]: c["weight"] for c in rubric["criteria"]}
+    total = sum(weights[cid] * (j["grade"] / 2.0) for cid, j in judgments.items())
+    return {"score": round(total * 100), "breakdown": judgments}
+```
+
+가중합은 애플리케이션 코드가 계산한다. 언어 모델에 총점을 맡기지 않으므로
+같은 판정에서는 항상 같은 점수가 나오고, 가중치 조정 시 재분석 없이 재계산된다.
+
+### 실행 구조와 성능
+
+분석은 비동기로 처리한다. 포즈 추출과 모델 추론을 합해 영상 1건당 수십 초가
+소요되므로 앱에서 동기 대기시키지 않는다. `analysis_job`이 작업 상태와 소요
+시간을 기록한다.
+
+아래는 2026-09-15에 같은 클립에서 **프레임 수만 바꿔** 두 번 잰 값이다
+(개발 환경, RTX 3050 8GB).
+
+| 구간 | 100프레임 | 300프레임(10초) | 성질 |
+|---|---:|---:|---|
+| 비전 모델 적재 (검출 + 포즈) | 10.7초 | 10.4초 | 고정 — 작업마다 다시 |
+| 검출 패스 | 8.0초 | 20.7초 | 프레임 비례 |
+| 포즈 추출 전체 | 16.2초 | 35.0초 | 적재(고정) + 비례 |
+| 특징 산출 | 0.01초 | 0.02초 | |
+| 판정 모델 적재 (bf16, 1회) | 7.4초 | 8.8초 | 상주 서빙에서는 0 |
+| 판정 (1.2B, 항목 6개) | 20.8초 | 24.1초 | **프레임과 무관** |
+| **합** | **72초** | **125초** | |
+
+판정을 항목마다 순차로 던지던 것을 상주 서빙에서 **동시에** 던지도록 바꿔
+그 구간이 12.6초 → 4.0초가 됐다. 미리보기 영상은 그리기가 아니라 **인코딩**이
+대부분이었고(20초 중 19.2초), 인코딩 설정을 바꿔 28.1초 → 3.5초가 됐다 —
+분석 결과에는 닿지 않는 단계다.
+
+**재현성은 실측으로 확인됐다.** 동일 측정값으로 5개 항목 판정을 3회 반복해
+모두 80점, 표준편차 0.00이 나왔다(목표 3점 이내). 그리디 디코딩과 스키마 강제의
+결합이 의도대로 동작한다.
+
+RTX 3050은 메모리 대역폭이 제한적이라 생성 속도가 낮다. 위 수치는 개발 환경
+기준이며 서비스 목표 응답 시간의 근거로 삼지 않는다. 성능 요구사항은 정식
+서빙 환경에서 재측정한다.
+
+## 5) 화면 설계
+
+*(내용 작성 예정)*
+
+[← 목차로]({{ "/toc/" | relative_url }})

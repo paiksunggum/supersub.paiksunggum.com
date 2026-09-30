@@ -1,142 +1,402 @@
 ---
-# 이 빈 프론트매터가 있어야 Jekyll이 SCSS를 CSS로 변환합니다.
 ---
 
-@import "minima";
+// Just the Docs 테마가 기본 스타일을 제공합니다. 아래는 이 프로젝트 콘텐츠 전용
+// 추가 스타일(ERD 이미지, 칸반 보드)이며 _includes/head_custom.html에서 불러옵니다.
 
-/* ── 보고서 표지 ───────────────────────────────────────── */
-.report-cover {
-  text-align: center;
-  padding: 4rem 1rem 3rem;
+.erd-diagram {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.2rem 0;
+  border: 1px solid #e3d6ac;
+  border-radius: 6px;
+  background: #fcfaf4;
+  padding: 0.6rem;
 }
 
-.cover-client {
-  font-size: 0.95rem;
-  letter-spacing: 0.15em;
-  color: #666;
-  margin-bottom: 2.5rem;
+.kanban-board {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  margin: 1.5rem 0 2rem;
+  padding-bottom: 0.5rem;
 }
 
-.cover-title {
-  font-size: 2rem;
-  line-height: 1.35;
+.kanban-column {
+  flex: 1 1 0;
+  min-width: 220px;
+  background: #f6f8fa;
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+
+.kanban-column h4 {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  margin: 0;
+  color: #586069;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.kanban-card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  padding: 0.6rem 0.7rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.role-tag {
+  display: block;
+  width: fit-content;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  margin-bottom: 0.35rem;
+  color: #fff;
+}
+
+.role-pm       { background: #7c4dff; }
+.role-front    { background: #2f6feb; }
+.role-backend  { background: #f2994a; }
+.role-agent    { background: #27ae60; }
+
+// --- 넓은 화면 레이아웃 (2026-09-17) -----------------------------------------
+// 테마 기본값은 넓은 화면에서 사이드바+본문(합 66.5rem)을 가운데 모으고 본문을 50rem 으로
+// 묶는다. 그래서 목차가 화면 가운데 쪽에 붙고 양옆이 비었다. 목차를 왼쪽 끝에 붙이고
+// 본문 폭을 넓힌다. 66.5rem 은 테마의 lg 구간(본문 50rem + 사이드바 16.5rem)이다 —
+// 그보다 좁은 화면은 테마 기본(이미 왼쪽 끝) 그대로 둔다.
+@media (min-width: 66.5rem) {
+  .side-bar {
+    width: 16.5rem;
+    align-items: flex-start;
+  }
+
+  // 머리칸(검색·GitHub)은 오른쪽 끝까지, 본문은 80rem 까지 — 본문만 묶어야 머리칸 밑줄이
+  // 화면 중간에서 끊기지 않는다.
+  .side-bar + .main {
+    margin-left: 16.5rem;
+    max-width: none;
+  }
+
+  .main-content-wrap {
+    max-width: 80rem;
+  }
+}
+
+// --- 본문 그림 · 수치 칸 (III 부 생성기 출력) ---------------------------------
+// 전에는 생성기가 색을 인라인 style 로 박았다. 인라인 색은 테마별로 못 바꾸므로 클래스로 옮겼다.
+.doc-figure {
+  margin: 1.4rem 0;
+}
+
+.doc-figure-caption {
+  font-size: 0.85rem;
+  color: #5c5962;
+  margin-top: 0.4rem;
+}
+
+// 추이 그래프의 날짜 칸(관리 지표) — 올리면 그 날짜가 옅게 떠서 십자선 역할을 하고, 값은 <title> 로 뜬다.
+// 다크 값은 아래 다크 절에 있다(2026-09-29 부터 그림을 다크 색으로 칠한다).
+.doc-figure .hit {
+  fill: transparent;
+}
+
+.doc-figure .hit:hover {
+  fill: rgba(39, 38, 43, 0.07);
+}
+
+.stat-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.2rem 0;
+}
+
+.stat-tile {
+  flex: 1 1 150px;
+  border: 1px solid #e3e1da;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  background: #fff;
+}
+
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #27262b;
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #27262b;
+  margin-top: 0.15rem;
+}
+
+.stat-note {
+  font-size: 0.78rem;
+  color: #5c5962;
+  margin-top: 0.2rem;
+}
+
+// 부록 D 의 ERD 그림 틀 — 그림이 커서 옆으로 밀어 본다
+.erd-frame {
+  overflow-x: auto;
+  margin: 1.2rem 0;
+  border: 1px solid #e3e1da;
+  border-radius: 6px;
+}
+
+// 틀마다 라이트 판과 다크 판(assets/erd/dark/, 2026-09-29) 이미지가 나란히 있고 모드에 따라 하나만 보인다.
+// 숨은 쪽은 loading="lazy" 라 받지 않는다.
+.erd-dark {
+  display: none;
+}
+
+// --- 다크 모드 (2026-09-17) --------------------------------------------------
+// 테마 전환은 _includes/head_custom.html · header_custom.html. 테마 기본 요소(본문·표·코드·
+// 사이드바)는 Just the Docs 의 dark 스킴이 맡고, 여기서는 우리가 직접 색을 준 것만 고친다.
+// 🔴 새로 색을 직접 주는 요소를 만들면 아래에 다크 값도 함께 둔다.
+.theme-toggle {
+  margin-left: auto;
+  padding: 0 1rem;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.75rem;
+  color: #7253ed;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+html[data-theme="dark"] {
+  .theme-toggle {
+    color: #6fa8fb;
+  }
+
+  // 그림 — 다크에서는 다크용 색으로 다시 칠한다(2026-09-29, 사용자 「다크 모드일 때 하얀 그림을 고칠 수 있어?」).
+  // 전에는 밝은 판(#f4f3ef) 위에 그대로 뒀다. 생성기(tools/pages/)는 밝은 바탕 기준 색을 속성(fill="…")으로 쓰고,
+  // CSS 는 속성보다 우선하므로 여기서 색만 바꾼다 — 생성기·페이지는 그대로다.
+  // 사람·계열 색은 dataviz 기본 팔레트의 다크 단계(다크 바탕에서 검증기 통과), 무채색은 사이트 다크 한 벌.
+  // 🔴 생성기에 새 색을 쓰면 여기에도 넣는다 — 안 넣으면 다크에서 그 색만 밝은 바탕 기준으로 남는다(확인: tools/README.md).
+  .doc-figure svg {
+    // 글자 · 선 · 화살표
+    [fill="#27262b"] { fill: #e6e1e8; }
+    [stroke="#27262b"] { stroke: #e6e1e8; }
+    [fill="#5c5962"] { fill: #a9a6ad; }
+    [stroke="#5c5962"] { stroke: #a9a6ad; }
+    // 바탕 역할 — 상자 면, 점 안쪽·점 둘레의 틈
+    [fill="#f6f5f1"] { fill: #242428; }
+    circle[fill="#fff"] { fill: #19191c; }
+    [stroke="#fff"] { stroke: #19191c; }
+    // 눈금 · 축 · 일정 막대
+    [stroke="#d9d7d0"], [stroke="#e3e1da"] { stroke: #37373d; }
+    [stroke="#c3c2b7"] { stroke: #45454c; }
+    [fill="#cfccc2"] { fill: #55555e; }
+    [fill="#efede7"] { fill: #2c2c32; }
+    // 요구사항 상태(순서 있는 파랑) — 다크에서는 「구현됨이 가장 밝게」로 뒤집는다. 강조 파랑(#256abf)도 같은 단계.
+    // 밝아진 구현됨·부분 칸 안의 흰 숫자는 어두운 글자로(명암비 8.3 · 4.8)
+    [fill="#104281"] { fill: #86b6ef; }
+    [fill="#256abf"] { fill: #3987e5; }
+    [stroke="#256abf"] { stroke: #3987e5; }
+    [fill="#6da7ec"] { fill: #1c5cab; }
+    [fill="#c3c2b7"] { fill: #55555e; }
+    text[fill="#fff"] { fill: #19191c; }
+    // 사람 색 · 빨강 — 팔레트의 다크 단계(정상호 님 보라 #4a3aa7 은 다크 바탕에서 2.05 라 안 보였다)
+    [fill="#2a78d6"] { fill: #3987e5; }
+    [stroke="#2a78d6"] { stroke: #3987e5; }
+    [fill="#eb6834"] { fill: #d95926; }
+    [stroke="#eb6834"] { stroke: #d95926; }
+    [fill="#1baf7a"] { fill: #199e70; }
+    [stroke="#1baf7a"] { stroke: #199e70; }
+    [fill="#4a3aa7"] { fill: #9085e9; }
+    [stroke="#4a3aa7"] { stroke: #9085e9; }
+    [fill="#d03b3b"] { fill: #e66767; }
+    [stroke="#d03b3b"] { stroke: #e66767; }
+    // "#898781"(흐린 계열) · "#008300"(해소)은 팔레트에서 다크도 같은 값이라 그대로 — 따옴표째 적어 둔 것은
+    // tools/README.md 의 「다크 색 표에 빠진 색」 검사가 이 둘을 「있다」로 세게 하려는 것이다
+  }
+
+  .doc-figure .hit:hover {
+    fill: rgba(255, 255, 255, 0.08);
+  }
+
+  .doc-figure-caption,
+  .stat-note {
+    color: #a9a6ad;
+  }
+
+  // 면·테두리는 다크 색 구성(_sass/color_schemes/dark.scss)의 값과 같게 — 2026-09-29 에 바탕을 더 짙은 무채색으로 바꿨다
+  .stat-tile {
+    border-color: #37373d;
+    background: #242428;
+  }
+
+  // ERD — 다크에서는 다크 판을 보인다(생성기가 같은 그림을 다크 색으로 한 벌 더 쓴다). 틀 바탕도 그림 바탕(#19191c)과 같게
+  // 둬서 그림 옆 빈칸이 따로 뜨지 않게 한다. 전에는 라이트 판을 흰 판 위에 그대로 뒀다.
+  .erd-frame {
+    border-color: #37373d;
+    background: #19191c;
+  }
+
+  .erd-light {
+    display: none;
+  }
+
+  .erd-dark {
+    display: inline;
+  }
+
+  .stat-value,
+  .stat-label {
+    color: #f5f6fa;
+  }
+
+  .kanban-column {
+    background: #242428;
+  }
+
+  .kanban-column h4 {
+    color: #a9a6ad;
+  }
+
+  .kanban-card {
+    border-color: #37373d;
+    background: #19191c;
+    box-shadow: none;
+  }
+}
+
+// 사이트 제목이 사이드바 폭(16.5rem)에서 세 줄로 접혀 고정 높이 머리칸(3.75rem) 위로
+// 잘렸다. 글자를 줄여 두 줄 안에 들인다. 테마가 크기를 !important 로 주므로 같이 쓴다.
+.site-title {
+  font-size: 1rem !important;
+  line-height: 1.3 !important;
+  word-break: keep-all; // 한글이 단어 중간(「플 / 랫폼」)에서 접히지 않게 — 띄어쓰기에서만 줄을 바꾼다
+}
+
+// 본문 제목도 같다 — 표지 큰 제목이 「빈 자 / 리에」처럼 접혔다
+h1,
+h2,
+h3 {
   word-break: keep-all;
 }
 
-/* 부제(개발 제안서)가 제목 위에 온다. */
-.cover-subtitle {
-  font-size: 1.35rem;
-  color: #444;
-  margin: 0 0 1rem;
-}
-
-/* 제목 아래 영문 표기 */
-.cover-title-en {
-  font-size: 0.85rem;
-  line-height: 1.7;
-  color: #999;
-  letter-spacing: 0.01em;
-  margin: 1rem 0 0;
-}
-
-.cover-rule {
-  width: 60px;
-  border: 0;
-  border-top: 2px solid #333;
-  margin: 3rem auto;
-}
-
-.cover-meta {
-  display: inline-block;
-  text-align: left;
-  margin: 0;
-
-  dt {
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    color: #777;
-    margin-top: 1.5rem;
+// --- 사이드바 — 1단계를 단추로, 묶음은 늘 펼쳐 둔다 (2026-09-23) ------------------------
+// 묶음(1단계)이 접혀 있어 안에 무엇이 있는지 하나씩 눌러 봐야 했다(사용자 지적). 1단계 묶음의
+// 목록은 늘 펼치고, 1단계 이름(묶음 · 프로젝트 전체 그림)은 배경 안에 글이 든 단추로 보인다
+// (사용자 요청) — 누르면 여전히 그 페이지로 간다. 지금 페이지가 든 단추는 강조색.
+// 3단계(스프린트 일지 · QA 체크리스트)는 테마 기본대로 접힌다.
+// 🔴 여백을 늘리면 사이드바가 화면보다 길어져, 테마가 현재 페이지를 보이려고 사이드바를 내린다 —
+// 맨 위 항목이 가려진다(2026-09-23 에 겪었다).
+#site-nav > .nav-list > .nav-list-item {
+  > .nav-list {
+    display: block;
+    padding-left: 0;
   }
 
-  dd {
-    font-size: 1.1rem;
-    margin: 0.35rem 0 0;
+  > .nav-list-expander {
+    display: none; // 늘 펼쳐 있으니 화살표는 뜻이 없다
   }
-}
 
-.cover-weeks { color: #888; font-size: 0.9em; }
-
-.cover-next {
-  margin-top: 4rem;
-  font-size: 1.05rem;
-}
-
-/* ── 목차 ──────────────────────────────────────────────── */
-.report-toc {
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 1rem 0 3rem;
-}
-
-.toc-part {
-  font-size: 1.3rem;
-  border-bottom: 2px solid #333;
-  padding-bottom: 0.6rem;
-  margin: 3rem 0 1.5rem;
-}
-
-/* 부록은 장 번호와 구분되도록 가·나·다 대신 A·B·C를 쓴다. */
-.toc-appendix {
-  list-style-type: upper-alpha;
-}
-
-.toc-list {
-  padding-left: 1.4rem;
-
-  > li {
-    font-size: 1.1rem;
+  // 1단계 — 칠한 단추. 라이트 바탕(#f5f6fa)과 확실히 갈리게 진하게 — 처음 값 #e9e7ef 는 옅어서
+  // 구분이 어렵다고 했다(사용자). 2026-09-29 에 보라에서 녹색으로(사용자 요청) — 바탕과의 명암비를 옛 보라
+  // (#cdc7e2, 1.51)와 비슷하게(1.48) 맞췄다. 지금 묶음은 진한 녹색 바탕에 흰 글씨(5.3).
+  > .nav-list-link {
+    min-height: 0;
+    margin: 0.55rem 0.6rem 0.2rem;
+    padding: 0.2rem 0.8rem;
+    border-radius: 6px;
+    background: #b1d5bd;
+    background-image: none;
+    font-size: 0.8rem !important;
     font-weight: 600;
-    margin-top: 1.4rem;
-    word-break: keep-all;
-  }
+    line-height: 1.4rem;
+    color: #27262b;
 
-  ol {
-    list-style-type: decimal;
-    padding-left: 1.2rem;
-    margin-top: 0.5rem;
-
-    li {
-      font-size: 0.98rem;
-      font-weight: 400;
-      color: #444;
-      margin-top: 0.3rem;
+    &:hover {
+      background: #a2cbb0;
     }
   }
+
+  &.active > .nav-list-link {
+    background: #1f7a4d;
+    color: #fff;
+  }
+
+  // 2·3단계(페이지) — 테두리 있는 흰 단추. 지금 보는 페이지는 연파랑(2026-09-29 — 보라 말고 다른 색으로라는
+  // 사용자 요청. 파랑은 본문 그림의 강조색 계열). 높이는 테마 기본(2rem)과 비슷하게 둬서 사이드바가 길어지지 않게 한다.
+  .nav-list .nav-list-link {
+    min-height: 0;
+    margin: 0.12rem 0.6rem 0.12rem 1rem;
+    padding: 0.15rem 0.7rem;
+    border: 1px solid #dcd8e8;
+    border-radius: 6px;
+    background: #fff;
+    background-image: none;
+    line-height: 1.4rem;
+    color: #27262b;
+
+    &:hover {
+      background: #efedf6;
+    }
+
+    &.active {
+      border-color: #8fb4e3;
+      background: #d6e5f8;
+      color: #1d5299; // 바탕과 명암비 6 이상
+      font-weight: 600;
+    }
+  }
+
+  // 3단계를 거느린 페이지(개발 구현 계획 등)의 펼침 화살표를 단추 안쪽으로
+  .nav-list .nav-list-expander {
+    right: 0.6rem;
+    width: 1.9rem;
+    height: 1.9rem;
+    padding: 0.45rem;
+  }
 }
 
-.toc-back { margin-top: 3rem; }
+// 다크 — 강조를 채도 높은 보라(#6a4fd8)로 했더니 눈이 아프다고 했다(사용자). 채도를 낮춘 색으로
+// 두고(2026-09-29 부터 묶음은 회녹색), 하위 페이지는 바탕·테두리·글자를 한 단계씩 밝혀 잘 보이게 한다.
+html[data-theme="dark"] #site-nav > .nav-list > .nav-list-item {
+  > .nav-list-link {
+    background: #3f5147;
+    color: #eef4f0;
 
-@media screen and (max-width: 600px) {
-  .cover-title { font-size: 1.45rem; }
-  .cover-title-en { font-size: 0.75rem; }
-  .report-cover { padding-top: 2rem; }
-}
+    &:hover {
+      background: #4a5e53;
+    }
+  }
 
-/* 칸반·주차별 표처럼 넓은 표는 표 안에서 가로 스크롤한다. */
-.post-content table {
-  display: block;
-  max-width: 100%;
-  overflow-x: auto;
-}
+  &.active > .nav-list-link {
+    background: #3b6e55;
+    color: #fff;
+  }
 
-/* 상단 내비게이션(표지·목차 링크, 모바일 햄버거)을 쓰지 않는다. */
-.site-nav {
-  display: none;
-}
+  // 선택되지 않은 페이지 단추 — 2026-09-29 에 보라빛 회색(#36333e)에서 무채색으로(사용자 요청). 더 짙어진
+  // 사이드바(#19191c)와의 구분은 옛 값과 같게(단추 1.23 · 테두리 1.88)
+  .nav-list .nav-list-link {
+    border-color: #46464e;
+    background: #2a2a30;
+    color: #ebebef;
 
-/* 표지 페이지에서는 minima가 출력하는 페이지 제목("표지")을 숨긴다. */
-.post:has(.report-cover) .post-header {
-  display: none;
+    &:hover {
+      background: #33333a;
+    }
+
+    &.active { // 지금 페이지 — 채도를 낮춘 회파랑(라이트의 연파랑과 같은 색 계열)
+      border-color: #5b7fae;
+      background: #2f4a6b;
+      color: #fff;
+    }
+  }
 }

@@ -3,12 +3,33 @@ _site
 .jekyll-cache
 .jekyll-metadata
 vendor
-
-# 환경 변수 — 실제 값이 들어가는 파일은 커밋하지 않는다
 .env
 .env.local
-.env.*.local
-!.env.example
-!.env.local.example
 
+# 🔴 워커 자격 증명. 예시(worker.env.example)만 저장소에 두고 실값은 넣지 않는다.
+# 이 저장소는 공개다 — 한 번 올라가면 히스토리에서 회수가 안 된다.
+worker.env
+*/worker.env
+**/worker.env
+
+# agent/ — Python 구현체
+agent/.venv/
+agent/data/
+agent/models/
+agent/out/
+agent/**/__pycache__/
+agent/.pytest_cache/
+agent/uv.lock
+
+# 모델 가중치 — 실행 시 자동 내려받는다. 저장소에 넣지 않는다.
+agent/*.pt
+
+# macOS
 .DS_Store
+
+# Node — www/ 의 것은 www/.gitignore 가 맡지만, 루트에서 받은 것도 넣지 않는다.
+node_modules/
+
+# 파인튜닝 어댑터 — 제품에 새어들지 않게 (미결 23번 ④, 2026-09-18)
+agent/eval/**/adapter*.pt
+agent/eval/**/*.safetensors
