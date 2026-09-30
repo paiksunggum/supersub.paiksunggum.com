@@ -1556,3 +1556,83 @@ html[data-theme="dark"] .home-cards {
 .home-hero__text {
   container-type: inline-size;
 }
+
+// --- 표지 다듬기 (2026-09-30, 6차) ---------------------------------------------------
+
+// 머리칸 제목은 링크가 아니다 — 올려도 색이 안 바뀌어야 한다(사용자 지적)
+.header-site-title:hover {
+  color: $ss-ink !important;
+}
+
+html[data-theme="dark"] .header-site-title:hover {
+  color: #f0eff6 !important;
+}
+
+// 링크 — 글자 바로 아래 스카이블루 밑줄을 늘 긋는다.
+// 🔴 테마는 밑줄을 background-image 그라데이션으로 그린다(위치를 못 맞춘다). 그걸 끄고
+//    text-decoration 으로 긋는다 — 글자 바로 아래에 붙고 두께·색을 정할 수 있다.
+$ss-sky:      #0a6494; // 흰 면 6.44 · 칸 바탕 끝 4.76
+$ss-sky-dark: #7dd3fc;
+
+.home-cards a,
+.home-facts a,
+.home-browse a {
+  color: $ss-sky;
+  background-image: none !important;
+  text-decoration: underline;
+  text-decoration-color: $ss-sky;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+
+  &:hover {
+    color: #074c72;
+    text-decoration-color: #074c72;
+    text-decoration-thickness: 2px;
+  }
+}
+
+html[data-theme="dark"] {
+  .home-cards a,
+  .home-facts a,
+  .home-browse a {
+    color: $ss-sky-dark;
+    text-decoration-color: $ss-sky-dark;
+
+    &:hover {
+      color: #b3e6fe;
+      text-decoration-color: #b3e6fe;
+    }
+  }
+}
+
+// 두 칸 — 그라데이션을 더 뚜렷하게, 외곽선은 뺀다
+// 🔴 어두운 끝을 #e3e0f0 까지 내렸다. 그 위에서 링크(#0a6494)가 4.96, 이름(#5b5b68)이 5.15 다.
+// ⛔ 더 내리면(#d6d3e3 부터) 링크가 3.7 로 떨어져 못 읽는다.
+.home-cards {
+  .home-facts,
+  .home-browse {
+    border: 0;
+    background: linear-gradient(150deg, #fff 0%, #f2f0f9 42%, #e3e0f0 100%);
+    box-shadow: 0 3px 16px rgba(35, 30, 60, 0.09);
+  }
+
+  // 이름 글자도 한 단계 진하게 — 어두워진 바탕에서 4.4 였던 것을 5.15 로
+  .home-facts .home-facts__k,
+  .home-browse dt {
+    color: #5b5b68;
+  }
+}
+
+html[data-theme="dark"] .home-cards {
+  .home-facts,
+  .home-browse {
+    border: 0;
+    background: linear-gradient(150deg, #282830 0%, #202028 42%, #17171d 100%);
+    box-shadow: none;
+  }
+
+  .home-facts .home-facts__k,
+  .home-browse dt {
+    color: #a6a6b4;
+  }
+}
