@@ -7,10 +7,8 @@ nav_exclude: true
 
 <div class="home-hero" markdown="0">
   <div class="home-hero__text">
-    <p class="home-hero__eyebrow">Super-Sub · 개발 제안서</p>
+    <p class="home-hero__eyebrow"><span>Super-Sub</span><span>개발 제안서</span></p>
     <h1><span>AI 를 활용하여 풋살 영상을 분석 후 리포트 작성,</span><span>작성된 리포트를 기반으로 맞는 팀과 용병을 찾아주는 플랫폼</span></h1>
-
-    <a class="home-cta" href="/내-역할/">내 역할 보기 →</a>
 
     <div class="home-cards">
     <div class="home-facts">
@@ -36,6 +34,8 @@ nav_exclude: true
       </dl>
     </nav>
     </div>
+
+    <a class="home-cta" href="/내-역할/">내 역할 보기 →</a>
   </div>
 
   <aside class="home-media" data-mode="app">

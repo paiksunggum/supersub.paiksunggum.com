@@ -1380,3 +1380,97 @@ html[data-theme="dark"] {
     span { color: $ss-silver-dark; }
   }
 }
+
+// --- 표지 머리·단추 다듬기 (2026-09-30, 4차) -----------------------------------------
+
+// 머리칸 제목은 이제 링크가 아니다(_includes/components/header.html) — 손 모양 커서도 끈다
+.header-site-title {
+  cursor: default;
+}
+
+// 「HOME」 — 검정과 은색 사이를 천천히 오간다.
+// 🔴 가장 밝은 단이 #7c888e 다. 사이드바(#e9eaf2) 위에서 3.5:1 이라 큰 글자 기준(3.0)을 넘는다.
+//    #9aa7ad(2.6)나 #c9d4d8(1.4)까지 밝히면 그 순간 글자가 사라진다 — 밝히지 말 것.
+// 🔴 움직임을 싫어하는 설정(prefers-reduced-motion)에서는 멈추고 검정으로 둔다.
+.site-title {
+  background: linear-gradient(100deg, #15151a 0%, #15151a 32%, #7c888e 50%, #15151a 68%, #15151a 100%);
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: ss-sheen 9s ease-in-out infinite;
+}
+
+@keyframes ss-sheen {
+  0%   { background-position: 100% 0; }
+  50%  { background-position: 0 0; }
+  100% { background-position: 100% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-title {
+    animation: none;
+    background: none;
+    -webkit-text-fill-color: #15151a;
+  }
+}
+
+html[data-theme="dark"] .site-title {
+  background: linear-gradient(100deg, #f0eff6 0%, #f0eff6 32%, #8d99a0 50%, #f0eff6 68%, #f0eff6 100%);
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="dark"] .site-title {
+    background: none;
+    -webkit-text-fill-color: #f0eff6;
+  }
+}
+
+// 눈썹줄 — 「개발 제안서」를 아랫줄로
+.home-hero__eyebrow span {
+  display: block;
+}
+
+// 두 칸의 세로 길이를 맞춘다 — 짧은 쪽이 늘어나 아래 선이 나란해진다
+.home-cards {
+  align-items: stretch;
+
+  .home-facts,
+  .home-browse {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+// 단추가 두 칸 아래로 내려왔다. 그림자는 단추 자신의 그라데이션 색을 옅게 깐다
+.home-hero__text > .home-cta {
+  margin: 1.6rem auto 0;
+  box-shadow:
+    0 10px 26px -10px rgba(240, 160, 125, 0.65),
+    0 6px 18px -8px rgba(235, 154, 176, 0.6),
+    0 2px 6px -2px rgba(120, 90, 100, 0.18);
+
+  &:hover {
+    box-shadow:
+      0 14px 32px -10px rgba(240, 160, 125, 0.75),
+      0 8px 22px -8px rgba(235, 154, 176, 0.7),
+      0 3px 8px -2px rgba(120, 90, 100, 0.22);
+  }
+}
+
+html[data-theme="dark"] .home-hero__text > .home-cta {
+  box-shadow:
+    0 10px 26px -12px rgba(216, 144, 132, 0.5),
+    0 6px 18px -10px rgba(210, 133, 167, 0.45);
+
+  &:hover {
+    box-shadow:
+      0 14px 32px -12px rgba(216, 144, 132, 0.6),
+      0 8px 22px -10px rgba(210, 133, 167, 0.55);
+  }
+}
