@@ -72,9 +72,24 @@ nav_exclude: true
         </button>
       </div>
 
-      <div class="home-media__thumbs" data-for="web" aria-label="웹 화면 고르기" hidden>
-        <button type="button" class="is-on" data-shot="/assets/home/web-compare.jpg" data-cap="웹 — 프로 선수와 자세 비교" data-w="1400" data-h="661">
-          <img src="/assets/home/web-compare.jpg" alt="선수 비교" loading="lazy" width="1400" height="661"><span>선수 비교</span>
+      <div class="home-media__thumbs is-wide" data-for="web" aria-label="웹 화면 고르기" hidden>
+        <button type="button" class="is-on" data-shot="/assets/home/web-home.jpg" data-cap="웹 — 홈 · 스쿼드 판" data-w="1400" data-h="702">
+          <img src="/assets/home/tw-home.jpg" alt="홈" loading="lazy" width="320" height="160"><span>홈</span>
+        </button>
+        <button type="button" data-shot="/assets/home/web-recommend.jpg" data-cap="웹 — AI 추천 · 지인 찾기" data-w="1400" data-h="841">
+          <img src="/assets/home/tw-recommend.jpg" alt="AI 추천" loading="lazy" width="320" height="192"><span>추천</span>
+        </button>
+        <button type="button" data-shot="/assets/home/web-compare.jpg" data-cap="웹 — 프로 선수와 자세 비교" data-w="1400" data-h="660">
+          <img src="/assets/home/tw-compare.jpg" alt="선수 비교" loading="lazy" width="320" height="151"><span>선수 비교</span>
+        </button>
+        <button type="button" data-shot="/assets/home/web-report.jpg" data-cap="웹 — 분석 리포트" data-w="1400" data-h="694">
+          <img src="/assets/home/tw-report.jpg" alt="분석 리포트" loading="lazy" width="320" height="159"><span>리포트</span>
+        </button>
+        <button type="button" data-shot="/assets/home/web-profile.jpg" data-cap="웹 — 내 프로필" data-w="1400" data-h="754">
+          <img src="/assets/home/tw-profile.jpg" alt="내 프로필" loading="lazy" width="320" height="172"><span>프로필</span>
+        </button>
+        <button type="button" data-shot="/assets/home/web-videos.jpg" data-cap="웹 — 영상 둘러보기" data-w="1400" data-h="693">
+          <img src="/assets/home/tw-videos.jpg" alt="영상 둘러보기" loading="lazy" width="320" height="158"><span>영상</span>
         </button>
       </div>
     </div>

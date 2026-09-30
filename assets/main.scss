@@ -623,8 +623,8 @@ $home-rail: 22rem;
 // 화면 고르기 — 작은 그림 줄. 좁으면 옆으로 민다
 .home-media__thumbs {
   display: flex;
+  flex-wrap: wrap; // 웹은 여섯 장이라 한 줄에 안 들어간다 — 옆으로 미는 것보다 접히는 쪽이 낫다
   gap: 0.4rem;
-  overflow-x: auto;
   padding-bottom: 0.2rem;
 
   &[hidden] { display: none; }
@@ -667,9 +667,9 @@ $home-rail: 22rem;
   }
 }
 
-// 웹은 가로로 넓다 — 작은 그림을 하나만 두고 넓게 보인다
-.home-media[data-mode="web"] .home-media__thumbs[data-for="web"] button {
-  width: 7.5rem;
+// 웹 화면은 가로로 넓어서 앱과 같은 폭으로 두면 무엇인지 안 보인다. 두 배 폭으로 두고 줄을 접는다
+.home-media__thumbs.is-wide button {
+  width: 4.7rem;
 }
 
 // 🔴 넓은 화면에서는 기둥을 화면 오른쪽 끝·맨 위에 붙인다 (사용자 요청).
@@ -703,7 +703,7 @@ $home-rail: 22rem;
       padding-bottom: 1.2rem;
       overflow: hidden;
       border-left: 1px solid #e8e8ec;
-      background: #fff;
+      background: #f5f6fa; // 왼쪽 사이드바와 같은 색 — 본문(흰색)을 가운데 두고 양쪽이 같은 톤이 된다
 
       .home-media__stage {
         display: flex;
@@ -727,6 +727,11 @@ $home-rail: 22rem;
         object-fit: contain;
         object-position: top center;
         background: none;
+      }
+
+      // 웹 화면은 가로로 납작해서 칸 위쪽에 붙으면 아래가 통째로 빈다 — 세로 가운데에 둔다
+      &[data-mode="web"] .home-media__shot {
+        object-position: center;
       }
 
       figcaption {
@@ -807,7 +812,7 @@ html[data-theme="dark"] {
   @media (min-width: 75rem) {
     body:has(.home-hero) .home-media {
       border-left-color: #33333b;
-      background: #17171a;
+      background: #19191c; // 다크 사이드바와 같은 색
     }
   }
 }
