@@ -22,7 +22,7 @@ title: 멀티모달 용병 스카우팅 플랫폼
 email: bsgum5373@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   생활체육 경기 영상에서 선수의 실력을 재고, 그 근거로 팀이 빈 자리에 맞는 용병을
-  찾는 플랫폼 개발 제안서입니다. 4인 팀으로 10주간 만들었습니다.
+  찾는 플랫폼 개발 제안서입니다. 4인 팀이 10주(2026.08.20~10.27) 동안 진행하는 프로젝트입니다.
 baseurl: "" # supersub.paiksunggum.com 루트에 배포하므로 서브패스 없음
 url: "https://supersub.paiksunggum.com" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  paiksunggum
