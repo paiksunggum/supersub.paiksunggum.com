@@ -1771,3 +1771,413 @@ html[data-theme="dark"] .home-cards {
     font-size: clamp(0.78rem, 3.75cqw, 1.78rem) !important;
   }
 }
+
+// --- 「내 역할」 페이지 (2026-09-30) ---------------------------------------------------
+// 읽는 사람은 채용담당자다. 한 화면에 한 가지만 묻고, 수치는 먼저 보이게, 긴 서술은
+// 「상황 → 판단 → 결과」로 잘라 둔다. 표지와 같은 팔레트(연보라 바탕 · 흰 면 · 스카이 링크)를 쓴다.
+$role-line: #e4e2ee;
+$role-ink:  #17161c;
+$role-soft: #5b5b68;
+
+.role {
+  max-width: 62rem;
+  margin: 0 auto;
+
+  a {
+    color: $ss-sky;
+    background-image: none !important;
+    text-decoration: underline;
+    text-decoration-color: $ss-sky;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+  }
+}
+
+// --- 머리 ---------------------------------------------------------------------------
+.role-hero {
+  padding: 1rem 0 2.2rem;
+  text-align: center;
+
+  h1 {
+    margin: 0 0 0.5rem;
+    font-size: 2.1rem !important;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: $role-ink;
+  }
+}
+
+.role-hero__sub {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  color: $role-soft;
+}
+
+.role-hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.2rem;
+  margin: 0 0 1.4rem;
+  font-size: 0.85rem;
+}
+
+.role-hero__note {
+  max-width: 34rem;
+  margin: 0 auto;
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: $role-soft;
+  word-break: keep-all;
+}
+
+// --- 수치 줄 — 맨 위에서 규모를 먼저 보인다 ------------------------------------------
+.role-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin: 0 0 2.6rem;
+
+  > div {
+    padding: 1rem 0.6rem;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 3px 16px rgba(35, 30, 60, 0.08);
+    text-align: center;
+  }
+
+  b {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: $role-ink;
+  }
+
+  span {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.72rem;
+    line-height: 1.5;
+    color: $role-soft;
+  }
+}
+
+// --- 절 ----------------------------------------------------------------------------
+.role-sec {
+  margin: 0 0 2.8rem;
+
+  > h2 {
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid $role-line;
+    font-size: 1.05rem !important;
+    font-weight: 700;
+    color: $role-ink;
+  }
+}
+
+.role-lead {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: #2b2b33;
+  word-break: keep-all;
+}
+
+.role-note {
+  margin: 0.9rem 0 0;
+  font-size: 0.8rem;
+  color: $role-soft;
+}
+
+// --- 칸 ----------------------------------------------------------------------------
+.role-grid2,
+.role-grid3 {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.role-grid2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.role-grid3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.role-card {
+  padding: 1.15rem 1.2rem;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 3px 16px rgba(35, 30, 60, 0.08);
+
+  h3 {
+    margin: 0 0 0.6rem;
+    font-size: 0.92rem !important;
+    font-weight: 700;
+    color: $role-ink;
+
+    em {
+      float: right;
+      font-size: 0.74rem;
+      font-style: normal;
+      font-weight: 600;
+      color: $ss-sky;
+    }
+  }
+
+  p {
+    margin: 0 0 0.6rem;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: #2b2b33;
+    word-break: keep-all;
+  }
+
+  p:last-child { margin-bottom: 0; }
+
+  ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.85rem;
+    line-height: 1.85;
+    color: #2b2b33;
+  }
+}
+
+.role-card__meta {
+  font-size: 0.78rem !important;
+  color: $role-soft !important;
+}
+
+// --- 기술 스택 ----------------------------------------------------------------------
+.role-stack {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+
+  > div {
+    padding: 1rem 1.1rem;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 3px 16px rgba(35, 30, 60, 0.08);
+  }
+
+  h4 {
+    margin: 0 0 0.6rem;
+    font-size: 0.72rem !important;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: $role-soft;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    padding: 0.2rem 0.6rem;
+    border: 1px solid $role-line;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    color: #2b2b33;
+  }
+}
+
+// --- 폴더 그림 ----------------------------------------------------------------------
+.role-tree {
+  margin: 0;
+  padding: 1.1rem 1.2rem;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 3px 16px rgba(35, 30, 60, 0.08);
+  font-size: 0.78rem;
+  line-height: 1.85;
+  color: #2b2b33;
+  overflow-x: auto;
+}
+
+// --- 화면 줄 ------------------------------------------------------------------------
+.role-shots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+
+  figure {
+    flex: 0 0 auto;
+    width: 7.3rem;
+    margin: 0;
+    text-align: center;
+  }
+
+  a { background-image: none !important; text-decoration: none !important; }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 3px 14px rgba(35, 30, 60, 0.16);
+  }
+
+  figcaption {
+    margin-top: 0.4rem;
+    font-size: 0.72rem;
+    color: $role-soft;
+  }
+}
+
+// --- 문제 사례 — 상황 / 판단 / 결과 ---------------------------------------------------
+// 🔴 서술을 통으로 두지 않는다. 채용담당자는 훑어 읽으므로 이름표가 붙어 있어야 건너뛸 수 있다.
+.role-case {
+  margin: 0 0 0.9rem;
+  padding: 1.2rem 1.3rem;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 3px 16px rgba(35, 30, 60, 0.08);
+
+  h3 {
+    margin: 0 0 0.9rem;
+    font-size: 0.98rem !important;
+    font-weight: 700;
+    color: $role-ink;
+    word-break: keep-all;
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: 4.6rem minmax(0, 1fr);
+    gap: 0.5rem 1.1rem;
+    margin: 0;
+  }
+
+  dt {
+    grid-column: 1;
+    margin: 0;
+    font-size: 0.74rem;
+    font-weight: 700;
+    line-height: 1.85;
+    text-align: left;
+    color: $ss-sky;
+
+    &::after { content: none; }
+  }
+
+  dd {
+    grid-column: 2;
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.85;
+    color: #2b2b33;
+    word-break: keep-all;
+  }
+}
+
+// --- 목록 ---------------------------------------------------------------------------
+.role-list {
+  margin: 0;
+  padding: 1.15rem 1.2rem 1.15rem 2.3rem;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 3px 16px rgba(35, 30, 60, 0.08);
+  font-size: 0.85rem;
+  line-height: 1.85;
+  color: #2b2b33;
+
+  li { margin-bottom: 0.5rem; word-break: keep-all; }
+  li:last-child { margin-bottom: 0; }
+}
+
+.role-team {
+  padding-left: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    gap: 0.6rem;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid #f1f0f6;
+    font-size: 0.82rem;
+  }
+
+  li:last-child { border-bottom: 0; }
+
+  span {
+    flex: 0 0 3.6rem;
+    font-weight: 700;
+    color: $role-ink;
+  }
+
+  .is-me span { color: $ss-sky; }
+}
+
+// --- 꼬리 ---------------------------------------------------------------------------
+.role-foot {
+  margin-top: 3rem;
+  padding-top: 1.6rem;
+  border-top: 1px solid $role-line;
+  text-align: center;
+
+  > p:first-child {
+    margin: 0 0 0.8rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: $role-ink;
+  }
+}
+
+// --- 좁은 화면 ----------------------------------------------------------------------
+@media (max-width: 56rem) {
+  .role-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .role-grid2,
+  .role-grid3,
+  .role-stack { grid-template-columns: minmax(0, 1fr); }
+  .role-case dl { grid-template-columns: minmax(0, 1fr); gap: 0.15rem; }
+  .role-case dt { margin-top: 0.6rem; }
+  .role-case dt:first-of-type { margin-top: 0; }
+}
+
+// --- 다크 ---------------------------------------------------------------------------
+html[data-theme="dark"] {
+  .role-hero h1 { color: #f2f2f6; }
+  .role-hero__sub,
+  .role-hero__note,
+  .role-note { color: #a6a6b2; }
+
+  .role-stats > div,
+  .role-card,
+  .role-stack > div,
+  .role-tree,
+  .role-list,
+  .role-case {
+    background: #1e1e24;
+    box-shadow: none;
+  }
+
+  .role-stats b { color: #f2f2f6; }
+  .role-stats span { color: #a6a6b2; }
+
+  .role-sec > h2 { border-bottom-color: #33333b; color: #f2f2f6; }
+  .role-card h3,
+  .role-case h3 { color: #f2f2f6; }
+  .role-card p,
+  .role-card ul,
+  .role-case dd,
+  .role-list,
+  .role-tree,
+  .role-lead { color: #dedee5; }
+  .role-card__meta { color: #a6a6b2 !important; }
+  .role-stack h4 { color: #a6a6b2; }
+  .role-stack li { border-color: #3a3a45; color: #dedee5; }
+  .role-team li { border-bottom-color: #2a2a31; }
+  .role-team span { color: #f2f2f6; }
+  .role-foot { border-top-color: #33333b; }
+  .role-foot > p:first-child { color: #f2f2f6; }
+
+  .role a,
+  .role-case dt,
+  .role-card h3 em,
+  .role-team .is-me span { color: $ss-sky-dark; }
+  .role a { text-decoration-color: $ss-sky-dark; }
+}
