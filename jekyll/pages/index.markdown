@@ -22,7 +22,6 @@ nav_exclude: true
     </div>
 
     <nav class="home-browse" aria-label="둘러보기">
-      <h2>둘러보기</h2>
       <dl>
         <dt>왜 만드나</dt>
         <dd><a href="/01-사업개요/">사업 개요</a> · <a href="/02-현황및문제정의/">현황 및 문제 정의</a> · <a href="/03-서비스제안/">서비스 제안</a></dd>
