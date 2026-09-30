@@ -411,7 +411,9 @@ html[data-theme="dark"] #site-nav > .nav-list > .nav-list-item {
 // 글만 있는 표지는 무엇을 만들었는지 보려면 링크를 눌러야 한다. 처음 보는 사람은 안 누른다.
 // 앱/웹을 단추로 갈라 보고, 앱은 다섯 화면 중 골라 본다(동작은 _includes/head_custom.html).
 // 🔴 이 짜임은 표지에서만 쓴다. 다른 페이지는 테마 기본 한 단 그대로다.
-$home-rail: 27rem;
+// 🔴 22rem 이다. 더 넓히면 사진이 높이에 묶여 기둥 폭을 못 채우고 양옆만 빈다
+// (27rem 일 때 431px 칸에 302px 만 그려졌다 — 2026-09-30 에 재서 줄였다).
+$home-rail: 22rem;
 
 .home-hero {
   display: grid;
@@ -629,7 +631,7 @@ $home-rail: 27rem;
 
   button {
     flex: 0 0 auto;
-    width: 3.6rem;
+    width: 3.1rem;
     padding: 0;
     border: 0;
     background: none;
@@ -686,40 +688,57 @@ $home-rail: 27rem;
       gap: 0;
     }
 
+    // 🔴 기둥은 위에서 아래로 「사진 — 설명 — 단추·고르기」 셋을 쌓고, 남는 높이를 사진이
+    // 가져간다. 사진 높이를 vh 로 박으면 화면 높이에 따라 아래가 잘리거나 단추가 밀려 난다.
     .home-media {
       position: fixed;
       top: 0;
       right: 0;
       bottom: 0;
       z-index: 5;
+      display: flex;
+      flex-direction: column;
       width: $home-rail;
       gap: 0;
-      padding-bottom: 1.4rem;
-      overflow-y: auto;
-      overscroll-behavior: contain;
+      padding-bottom: 1.2rem;
+      overflow: hidden;
       border-left: 1px solid #e8e8ec;
       background: #fff;
 
-      // 맨 위 사진은 테두리·모서리 없이 화면 끝까지 붙는다.
-      // 🔴 높이를 화면의 46%로 묶는다. 안 묶으면 앱 화면(432x936)만으로 화면을 다 먹어
-      // 아래 단추와 고르기 줄이 기둥을 스크롤해야 보인다. 잘린 아래는 눌러 원본으로 본다.
-      .home-media__shot {
-        border: 0;
-        border-radius: 0;
-        max-height: 46vh;
-        object-fit: cover;
-        object-position: top center;
+      .home-media__stage {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0; // 없으면 flex 항목이 안 줄어들어 사진이 단추를 밀어낸다
       }
 
-      figcaption { padding: 0 1.1rem; }
+      .home-media__link {
+        flex: 1 1 auto;
+        min-height: 0;
+      }
 
-      .home-media__controls { padding: 0.9rem 1.1rem 0; }
-    }
+      // 🔴 자르지 않는다(contain). 화면이 높으면 기둥 폭을 꽉 채우고, 낮으면 통째로 줄어든다 —
+      // 어느 쪽이든 앱 화면 전체가 보인다. 전에 쓰던 cover 는 절반만 보였다(2026-09-30 정정).
+      .home-media__shot {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        border-radius: 0;
+        object-fit: contain;
+        object-position: top center;
+        background: none;
+      }
 
-    // 웹은 가로라 잘라 내면 뜻이 사라진다 — 원래 비율 그대로 둔다
-    .home-media[data-mode="web"] .home-media__shot {
-      max-height: none;
-      object-fit: fill;
+      figcaption {
+        flex: 0 0 auto;
+        padding: 0.5rem 1.1rem 0;
+        margin-top: 0;
+      }
+
+      .home-media__controls {
+        flex: 0 0 auto;
+        padding: 0.8rem 1.1rem 0;
+      }
     }
   }
 }
@@ -800,15 +819,12 @@ html[data-theme="dark"] {
     gap: 1.8rem;
   }
 
+  // 좁은 화면에서는 기둥이 글 아래로 내려오므로 높이를 안 묶는다 — 사진이 원래 비율로 다 보인다
   .home-media {
     max-width: 22rem;
-
-    .home-media__shot { max-height: 60vh; object-fit: cover; object-position: top center; }
   }
 
   .home-media[data-mode="web"] {
     max-width: none;
-
-    .home-media__shot { max-height: none; object-fit: fill; }
   }
 }
