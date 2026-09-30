@@ -1113,3 +1113,45 @@ html[data-theme="dark"] {
     &:hover { background: linear-gradient(100deg, #e29e79 0%, #de988d 42%, #db91a7 72%, #d88db0 100%); }
   }
 }
+
+// --- 표지 머리 다듬기 (2026-09-30) ---------------------------------------------------
+// 영문 부제 · 「4인이 함께 쓴…」 한 줄 · 「목차 →」를 걷었다(사용자 요청).
+// 눈썹줄과 큰 제목만 가운데로 세운다 — 아래 칸(사실 표 · 둘러보기)은 표라서 왼쪽 정렬이 맞다.
+.home-hero__text {
+  .home-hero__eyebrow,
+  h1 {
+    text-align: center;
+  }
+
+  // 제목은 두 줄로 고정한다. <span> 을 줄로 세워 정확히 그 자리에서 끊는다 —
+  // 🔴 <br> 로 하면 좁은 화면에서 한 줄이 또 접혀 세 줄·네 줄이 된다.
+  h1 span {
+    display: block;
+  }
+
+  h1 {
+    margin-bottom: 1.6rem;
+    font-size: 1.62rem;
+    line-height: 1.5;
+  }
+}
+
+// 왼쪽 위 「HOME」도 가운데로. 메뉴 단추는 좁은 화면에서만 보이므로 그때는 테마 기본대로 둔다
+// 🔴 테마가 .site-title 을 display: flex 로 둔다 — 그래서 text-align 이 안 먹는다.
+// 글자를 가운데로 보내려면 그 자신에게 justify-content 를 줘야 한다(75 vs 132 로 어긋나 있었다).
+@media (min-width: 50rem) {
+  .site-header {
+    justify-content: center;
+  }
+
+  .site-title {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 34rem) {
+  .home-hero__text h1 {
+    font-size: 1.32rem;
+  }
+}

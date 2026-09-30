@@ -8,8 +8,7 @@ nav_exclude: true
 <div class="home-hero" markdown="0">
   <div class="home-hero__text">
     <p class="home-hero__eyebrow">Super-Sub · 개발 제안서</p>
-    <h1>생활체육 경기 영상에서 선수의 실력을 재고, 그 근거로 팀이 빈 자리에 맞는 용병을 찾는 플랫폼</h1>
-    <p class="home-hero__sub">Measuring Player Skill from Amateur Sports Videos and Matching Substitutes on the Evidence</p>
+    <h1><span>AI 를 활용하여 풋살 영상을 분석 후 리포트를 만들고,</span><span>그 리포트를 기반으로 맞는 팀을 찾아주는 플랫폼</span></h1>
 
     <div class="home-facts">
       <div><span class="home-facts__k">기간</span><span class="home-facts__v">2026년 8월 20일 ~ 10월 27일 (10주)</span></div>
@@ -20,8 +19,6 @@ nav_exclude: true
     </div>
 
     <a class="home-cta" href="/내-역할/">내 역할 보기 (백성검) →</a>
-
-    <p class="home-note">4인이 함께 쓴 제안서입니다. 제가 맡은 부분은 따로 정리해 두었습니다.</p>
 
     <nav class="home-browse" aria-label="둘러보기">
       <h2>둘러보기</h2>
@@ -95,6 +92,3 @@ nav_exclude: true
     </div>
   </aside>
 </div>
-
-[목차 →](/toc/)
-{: .home-toclink }
