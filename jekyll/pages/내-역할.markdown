@@ -73,10 +73,40 @@ nav_order: 0
       </ul>
     </div>
   </div>
-  <p class="role-note">로그인 유지 · 구글 로그인 · 영상 재생 · 사진 고르기처럼 화면 기능에 쓴 패키지는
-  따로 적지 않았습니다. 정확한 버전은 저장소의 <code>pubspec.yaml</code> · <code>package.json</code> 에 있습니다.</p>
 </section>
 
+<section class="role-sec">
+  <h2>왜 이 스킬을 선택했나</h2>
+  <div class="role-grid3">
+    <div class="role-card">
+      <p class="role-card__skill">사용한 스킬 · Riverpod</p>
+      <h3>한 곳에서 바꾸면 다른 화면도 같이 바뀌어야 했다</h3>
+      <p>로그인 정보 · 내 선수 카드 · 소속 팀은 홈 · 프로필 · 스쿼드 판 · 팀 매칭이 <b>모두 같이 씁니다.</b>
+      프로필에서 카드 사진을 바꾸면 홈에 있는 카드도 바로 바뀌어야 합니다.</p>
+      <p>Riverpod 은 <b>데이터마다 주인을 따로</b> 둡니다. 그래서 그 데이터를 쓰는 화면만 다시 그려지고,
+      관계없는 화면은 그대로 있습니다.</p>
+      <p>덤으로 <b>화면 없이도 데이터를 만들 수 있습니다.</b> 시험에서 진짜 서버 대신 가짜를 끼우기 쉬워서,
+      시험 994개가 이 덕을 봤습니다.</p>
+    </div>
+    <div class="role-card">
+      <p class="role-card__skill">사용한 스킬 · GoRouter</p>
+      <h3>알림을 누르면 그 화면이 바로 열려야 했다</h3>
+      <p>알림을 누르면 <b>그 경기 화면</b>이 바로 열려야 하고, 로그인 안 한 사람은 어느 화면으로 들어와도
+      로그인으로 보내야 합니다.</p>
+      <p>화면마다 「로그인했나?」를 따로 넣으면 <b>화면이 늘 때마다 하나씩 빠뜨립니다.</b>
+      GoRouter 는 주소 목록을 한곳에 모아 두므로, 그 한곳에서 전부 거릅니다.</p>
+      <p>웹(Next.js)도 주소로 화면을 찾습니다. 앱을 같은 방식으로 두니 <b>두 쪽을 같은 머리로</b> 다룹니다.</p>
+    </div>
+    <div class="role-card">
+      <p class="role-card__skill">사용한 스킬 · Feature-first</p>
+      <h3>기능 하나를 고칠 때 한 곳만 열고 싶었다</h3>
+      <p>영상 분석 하나를 고치려면 <b>화면 · 서버 통신 · 관절 계산</b>을 같이 봐야 합니다.</p>
+      <p>「화면 폴더 · 데이터 폴더 · 모델 폴더」처럼 종류로 나누면 <b>폴더 네 개를 오갑니다.</b>
+      기능으로 묶으니 <code>video</code> 폴더 하나만 열면 됩니다.</p>
+      <p>기능이 여덟 갈래로 늘었는데 <b>서로 안 얽혔습니다.</b></p>
+    </div>
+  </div>
+</section>
 <section class="role-sec">
   <h2>폴더를 어떻게 나눴나</h2>
   <p class="role-lead">먼저 <b>기능으로</b> 나누고, 기능 안을 다시 <b>세 가지 일</b>로 나눴습니다 —
@@ -90,38 +120,6 @@ nav_order: 0
       └─ presentation/  화면 · 화면 조각</pre>
 </section>
 
-<section class="role-sec">
-  <h2>왜 이렇게 만들었나</h2>
-  <div class="role-grid3">
-    <div class="role-card">
-      <h3>데이터가 바뀌면 화면이 따라 바뀌게</h3>
-      <p>로그인 정보 · 내 카드 · 소속 팀은 여러 화면이 같이 씁니다. 한 화면에서 바꾸면
-      다른 화면도 알아서 새 값을 보여 줘야 했습니다.</p>
-      <p>그래서 <b>데이터마다 주인을 하나씩</b> 두고, 그 데이터를 쓰는 화면만 저절로
-      다시 그려지게 했습니다. 큰 덩어리 하나로 두면 관계없는 화면까지 같이 다시 그려집니다.</p>
-      <p class="role-card__meta">쓴 것: Riverpod</p>
-    </div>
-    <div class="role-card">
-      <h3>앱에서도 주소로 화면을 찾아가게</h3>
-      <p>알림을 누르면 바로 그 화면이 열려야 하고, 로그인 안 한 사람은 어느 화면으로 들어와도
-      막혀야 합니다.</p>
-      <p>화면마다 따로 처리하면 하나씩 빠뜨립니다. <b>주소 목록을 한곳에 모아</b> 두고
-      「로그인 확인」도 그 한곳에서 하게 했습니다.</p>
-      <p class="role-card__meta">쓴 것: GoRouter</p>
-    </div>
-    <div class="role-card">
-      <h3>기능 하나를 고칠 때 한 곳만 보게</h3>
-      <p>「화면 폴더 · 데이터 폴더 · 모델 폴더」로 나누면 영상 분석 하나를 고치는 데
-      폴더 네 개를 오갑니다.</p>
-      <p>그래서 <b>기능으로 먼저 묶었습니다.</b> 영상 분석이면 <code>video</code> 폴더 안에
-      화면 · 데이터 · 계산이 다 있습니다.</p>
-      <p class="role-card__meta">폴더: auth · card · home · profile · team · video …</p>
-    </div>
-  </div>
-  <p class="role-note">🔴 한 번 데였습니다 — 카드가 없으면 만들고 <b>만들자마자 다시 불러오게</b> 했는데,
-  서버가 아직 안 내주는 사이에 <b>스스로를 끝없이 다시 부르는</b> 일이 생겼습니다.
-  「다시 불러오기」 대신 <b>한 번만 직접 가져오기</b>로 바꿔 끊었습니다.</p>
-</section>
 
 <section class="role-sec">
   <h2>시험을 994개 쓴 이유</h2>
@@ -148,9 +146,6 @@ nav_order: 0
       문서에만 적으면 안 읽히지만 시험은 안 읽어도 걸립니다.</p>
     </div>
   </div>
-  <p class="role-note">🔴 시험이 다 통과했는데 실제 기기에서 안 된 적도 있습니다.
-  시험은 <b>진짜 화면이 아니라 흉내 낸 환경</b>에서 돌아서, 「단추가 화면 밖으로 밀려난 것」 같은 건 못 봅니다.
-  그 뒤로 중요한 화면은 <b>실제 브라우저를 띄워 위치를 재서</b> 다시 확인합니다.</p>
 </section>
 
 <section class="role-sec">
@@ -162,7 +157,6 @@ nav_order: 0
     <figure><a href="/assets/home/app-report.jpg"><img src="/assets/home/t-report.jpg" alt="리포트" loading="lazy" width="157" height="340"></a><figcaption>리포트 · 선수와 비교</figcaption></figure>
     <figure><a href="/assets/home/app-profile.jpg"><img src="/assets/home/t-profile.jpg" alt="내 프로필" loading="lazy" width="157" height="340"></a><figcaption>내 프로필</figcaption></figure>
   </div>
-  <p class="role-note">웹 화면은 <a href="/">표지</a>의 오른쪽 기둥에서 「웹」 단추로 볼 수 있습니다.</p>
 </section>
 
 <section class="role-sec">

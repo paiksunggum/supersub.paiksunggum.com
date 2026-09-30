@@ -2218,3 +2218,19 @@ html[data-theme="dark"] {
 @media (max-width: 56rem) {
   .role-stats.is-three { grid-template-columns: minmax(0, 1fr); }
 }
+
+// 「왜 이 스킬을 선택했나」 — 스킬 이름을 칸 맨 위에 (2026-09-30)
+.role-card__skill {
+  margin: 0 0 0.55rem !important;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid $role-line;
+  font-size: 0.73rem !important;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: $ss-sky !important;
+}
+
+html[data-theme="dark"] .role-card__skill {
+  border-bottom-color: #33333b;
+  color: $ss-sky-dark !important;
+}
