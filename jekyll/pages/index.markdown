@@ -40,19 +40,44 @@ nav_exclude: true
     </nav>
   </div>
 
-  <aside class="home-media">
-    <figure class="home-media__app">
-      <a href="/assets/home/app-home.jpg" title="크게 보기">
-        <img src="/assets/home/app-home.jpg" alt="Super-Sub 안드로이드 앱 홈 화면 — 선수 카드와 스쿼드 판" loading="lazy" width="600" height="1300">
+  <aside class="home-media" data-mode="app">
+    <figure class="home-media__stage">
+      <a class="home-media__link" href="/assets/home/app-home.jpg" title="크게 보기">
+        <img class="home-media__shot" src="/assets/home/app-home.jpg" alt="Super-Sub 앱 홈 화면" width="600" height="1300">
       </a>
-      <figcaption>앱 홈 — Flutter <span class="home-media__zoom">(눌러서 크게)</span></figcaption>
+      <figcaption><span class="home-media__cap">앱 — 홈</span> <span class="home-media__zoom">(눌러서 크게)</span></figcaption>
     </figure>
-    <figure class="home-media__web">
-      <a href="/assets/home/web-compare.jpg" title="크게 보기">
-        <img src="/assets/home/web-compare.jpg" alt="웹의 선수 비교 화면 — 프로 선수와 내 자세를 관절 단위로 겹쳐 보여 준다" loading="lazy" width="1400" height="661">
-      </a>
-      <figcaption>웹 — 프로 선수와 자세 비교 <span class="home-media__zoom">(눌러서 크게)</span></figcaption>
-    </figure>
+
+    <div class="home-media__controls">
+      <div class="home-media__tabs" role="tablist" aria-label="화면 종류">
+        <button type="button" role="tab" data-mode="app" aria-selected="true">앱</button>
+        <button type="button" role="tab" data-mode="web" aria-selected="false">웹</button>
+      </div>
+
+      <div class="home-media__thumbs" data-for="app" aria-label="앱 화면 고르기">
+        <button type="button" class="is-on" data-shot="/assets/home/app-home.jpg" data-cap="앱 — 홈" data-w="600" data-h="1300">
+          <img src="/assets/home/t-home.jpg" alt="홈" loading="lazy" width="157" height="340"><span>홈</span>
+        </button>
+        <button type="button" data-shot="/assets/home/app-squad.jpg" data-cap="앱 — 스쿼드 판" data-w="600" data-h="1300">
+          <img src="/assets/home/t-squad.jpg" alt="스쿼드" loading="lazy" width="157" height="340"><span>스쿼드</span>
+        </button>
+        <button type="button" data-shot="/assets/home/app-analyze.jpg" data-cap="앱 — 영상 분석" data-w="600" data-h="1300">
+          <img src="/assets/home/t-analyze.jpg" alt="영상 분석" loading="lazy" width="157" height="340"><span>분석</span>
+        </button>
+        <button type="button" data-shot="/assets/home/app-report.jpg" data-cap="앱 — 리포트 · 선수와 비교" data-w="600" data-h="1300">
+          <img src="/assets/home/t-report.jpg" alt="리포트" loading="lazy" width="157" height="340"><span>리포트</span>
+        </button>
+        <button type="button" data-shot="/assets/home/app-profile.jpg" data-cap="앱 — 내 프로필" data-w="600" data-h="1300">
+          <img src="/assets/home/t-profile.jpg" alt="프로필" loading="lazy" width="157" height="340"><span>프로필</span>
+        </button>
+      </div>
+
+      <div class="home-media__thumbs" data-for="web" aria-label="웹 화면 고르기" hidden>
+        <button type="button" class="is-on" data-shot="/assets/home/web-compare.jpg" data-cap="웹 — 프로 선수와 자세 비교" data-w="1400" data-h="661">
+          <img src="/assets/home/web-compare.jpg" alt="선수 비교" loading="lazy" width="1400" height="661"><span>선수 비교</span>
+        </button>
+      </div>
+    </div>
   </aside>
 </div>
 
