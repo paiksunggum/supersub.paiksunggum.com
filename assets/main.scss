@@ -624,6 +624,7 @@ $home-rail: 22rem;
 .home-media__thumbs {
   display: flex;
   flex-wrap: wrap; // 웹은 여섯 장이라 한 줄에 안 들어간다 — 옆으로 미는 것보다 접히는 쪽이 낫다
+  justify-content: center; // 줄이 기둥보다 좁아 왼쪽으로 치우쳐 보였다
   gap: 0.4rem;
   padding-bottom: 0.2rem;
 
@@ -831,5 +832,138 @@ html[data-theme="dark"] {
 
   .home-media[data-mode="web"] {
     max-width: none;
+  }
+}
+
+// --- 색감 — 연보라 톤 · 유리 면 (2026-09-30) ----------------------------------------
+// 참고로 받은 대시보드(BRYZOS)의 색감이다: 아주 밝은 연보라 회색 바탕에 흰 면이 떠 있고,
+// 강조는 파스텔 주황→분홍 그라데이션. 픽셀을 재서 값을 가져왔다
+// (바탕 #e5e6ed · 연보라 #cfbfe4 · 그라데이션 #ee9977→#e897ab · 라임 #eeff7b).
+//
+// 🔴 다만 그 화면은 대시보드라 글자 대비가 아주 낮다. 이 사이트는 한글 본문이 빽빽해서
+// 그대로 쓰면 못 읽는다 — 재 보니 **주황·분홍 위 흰 글자가 2.22:1** 이었다(4.5 필요).
+// 그래서 색은 가져오고 글자만 바꿨다: 파스텔 그라데이션 위에 **검은 글자**(8.1:1).
+// ⛔ 이 단추 글자를 흰색으로 되돌리지 말 것 — 그 순간 안 읽힌다.
+$ss-tint:      #e9eaf2; // 사이드바 · 오른쪽 기둥
+$ss-canvas:    #f7f7fb; // 본문 바탕
+$ss-line:      #e2e2ec;
+$ss-ink:       #17161c;
+$ss-ink-soft:  #5c5a66;
+$ss-violet:    #5b4bd6; // 강조 — 흰 글자 6.14:1
+
+body {
+  background-color: $ss-canvas;
+}
+
+.side-bar {
+  background-color: $ss-tint;
+  border-right: 1px solid $ss-line;
+}
+
+.main-header {
+  border-bottom-color: $ss-line;
+}
+
+// 표지 기둥도 사이드바와 같은 톤 (위 규칙의 #f5f6fa 를 덮는다)
+@media (min-width: 75rem) {
+  body:has(.home-hero) .home-media {
+    background: $ss-tint;
+    border-left-color: $ss-line;
+  }
+}
+
+// 사실 표 · 둘러보기 — 흰 면을 띄운다
+.home-facts,
+.home-browse {
+  padding: 0.9rem 1.1rem;
+  border: 1px solid $ss-line;
+  border-top: 1px solid $ss-line;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(35, 30, 60, 0.04);
+}
+
+.home-facts > div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.home-browse {
+  margin-top: 1.6rem;
+}
+
+// 강조 단추 — 참고 화면의 파스텔 그라데이션. 글자는 검정이라야 읽힌다(8.1:1)
+.home-cta {
+  background: linear-gradient(95deg, #f0a07d 0%, #eb9ab0 100%);
+  color: $ss-ink !important;
+  box-shadow: 0 2px 10px rgba(226, 140, 140, 0.35);
+
+  &:hover {
+    background: linear-gradient(95deg, #eb9268 0%, #e68aa4 100%);
+    color: $ss-ink !important;
+  }
+}
+
+// 고른 표시 · 링크 강조를 파랑에서 연보라 계열로 — 참고 화면의 라벤더에 맞춘다
+.home-media__tabs button[aria-selected="true"] {
+  border-color: $ss-violet;
+  background: $ss-violet;
+}
+
+.home-media__thumbs button.is-on {
+  img { border-color: $ss-violet; box-shadow: 0 0 0 1px $ss-violet; }
+  span { color: $ss-violet; }
+}
+
+#site-nav > .nav-list > .nav-list-item .nav-list .nav-list-link.active {
+  border-left-color: $ss-violet;
+  background: #eceafb;
+  color: #3b2ea8;
+}
+
+// 다크 — 같은 짜임에 값만 뒤집는다. 그라데이션은 채도를 낮춰 눈이 안 아프게
+html[data-theme="dark"] {
+  body { background-color: #141418; }
+
+  .side-bar { background-color: #1b1b20; border-right-color: #32323b; }
+  .main-header { border-bottom-color: #32323b; }
+
+  .home-facts,
+  .home-browse {
+    border-color: #32323b;
+    background: #1e1e24;
+    box-shadow: none;
+  }
+
+  .home-cta {
+    background: linear-gradient(95deg, #d98a68 0%, #d4879b 100%);
+    color: #14100f !important;
+    box-shadow: none;
+
+    &:hover { background: linear-gradient(95deg, #e29573 0%, #dd92a6 100%); }
+  }
+
+  .home-media__tabs button[aria-selected="true"] {
+    border-color: #8b7bf0;
+    background: #8b7bf0;
+    color: #14121f;
+  }
+
+  .home-media__thumbs button.is-on {
+    img { border-color: #8b7bf0; box-shadow: 0 0 0 1px #8b7bf0; }
+    span { color: #b3a6ff; }
+  }
+
+  #site-nav > .nav-list > .nav-list-item .nav-list .nav-list-link.active {
+    border-left-color: #8b7bf0;
+    background: #272248;
+    color: #ddd5ff;
+  }
+
+  @media (min-width: 75rem) {
+    body:has(.home-hero) .home-media {
+      background: #1b1b20;
+      border-left-color: #32323b;
+    }
   }
 }
