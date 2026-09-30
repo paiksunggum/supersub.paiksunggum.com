@@ -13,8 +13,10 @@
   (function () {
     var saved = null;
     try { saved = localStorage.getItem('supersub-theme'); } catch (e) {}
-    var theme = (saved === 'dark' || saved === 'light') ? saved
-      : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    /* 기본값은 라이트다 (2026-09-30). 전에는 운영체제 설정을 따랐는데, 처음 오는 사람의
+       절반이 어두운 화면으로 보게 된다. 표지의 화면 사진이 어두운 UI 라 밝은 바탕에서 더 선다.
+       고른 적이 있으면 그 값이 먼저다. */
+    var theme = (saved === 'dark' || saved === 'light') ? saved : 'light';
     document.documentElement.setAttribute('data-theme', theme);
     if (theme === 'dark') {
       document.write('<link rel="stylesheet" id="theme-dark-css" href="{{ "/assets/css/just-the-docs-dark.css" | relative_url }}">');
