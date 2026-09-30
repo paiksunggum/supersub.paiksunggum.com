@@ -47,33 +47,34 @@ nav_order: 0
     <div>
       <h4>앱</h4>
       <ul>
-        <li>Flutter · Dart</li>
-        <li>Riverpod 3.4</li>
-        <li>go_router 18</li>
-        <li>secure_storage</li>
-        <li>google_sign_in</li>
-        <li>video_player</li>
+        <li>Flutter</li>
+        <li>Dart</li>
+        <li>Riverpod</li>
+        <li>GoRouter</li>
+        <li>Feature-first</li>
       </ul>
     </div>
     <div>
       <h4>웹</h4>
       <ul>
-        <li>Next.js 16.3</li>
-        <li>React 19.2</li>
-        <li>TypeScript 5</li>
-        <li>Tailwind 4</li>
+        <li>Next.js</li>
+        <li>React</li>
+        <li>TypeScript</li>
+        <li>Tailwind CSS</li>
       </ul>
     </div>
     <div>
-      <h4>협업 · 배포</h4>
+      <h4>배포 · 협업</h4>
       <ul>
-        <li>Git (1인 1브랜치)</li>
+        <li>Git · GitHub</li>
         <li>GitHub Actions</li>
         <li>Vercel</li>
         <li>Google Play Console</li>
       </ul>
     </div>
   </div>
+  <p class="role-note">로그인 유지 · 구글 로그인 · 영상 재생 · 사진 고르기처럼 화면 기능에 쓴 패키지는
+  따로 적지 않았습니다. 정확한 버전은 저장소의 <code>pubspec.yaml</code> · <code>package.json</code> 에 있습니다.</p>
 </section>
 
 <section class="role-sec">
