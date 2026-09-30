@@ -1267,3 +1267,68 @@ html[data-theme="dark"] {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+// --- 표지 두 칸 — 은은한 바탕 · 가운데 정렬 · 금색 링크 (2026-09-30) --------------------
+// 바탕은 참고 화면(BRYZOS)의 카드에서 픽셀을 재 왔다(#e4e3eb → #d7d6e0). 다만 그 위에
+// 한글 본문이 올라가므로 한 단계 밝게 깔았다.
+//
+// 🔴 금색은 앱 하단바의 값 #A8894A 다(flutter/lib/core/widgets/floating_nav_bar.dart).
+// 그런데 **밝은 바탕에서 3.31:1** 이라 본문 링크로는 못 읽는다(4.5 필요). 색조는 그대로 두고
+// 어둡게 내린 #7e6229 를 글자에 쓴다 — 흰 면 5.73 · 카드 바탕 끝 4.84.
+// ⛔ 링크 글자를 #A8894A 로 되돌리지 말 것. 테두리·밑줄 같은 장식에는 원래 값을 써도 된다.
+$ss-gold:      #7e6229;
+$ss-gold-app:  #a8894a; // 앱 원본 — 장식용
+$ss-gold-dark: #d4b478; // 다크 바탕용 (8.37)
+
+.home-cards {
+  .home-facts,
+  .home-browse {
+    background: linear-gradient(155deg, #fff 0%, #f5f4fa 52%, #eceaf3 100%);
+    border-color: #e4e2ee;
+    box-shadow: 0 2px 10px rgba(35, 30, 60, 0.05);
+    text-align: center;
+  }
+
+  // 🔴 dt·dd 의 grid-column 을 풀어 준다. 1·2 로 박혀 있으면 칸을 하나로 줄여도
+  // dd 가 **암묵적 둘째 칸**을 만들어 두 단으로 남는다(2026-09-30 에 이것 때문에 안 바뀌었다).
+  .home-browse dt,
+  .home-browse dd {
+    grid-column: auto;
+    text-align: center;
+  }
+
+  .home-browse h2 { text-align: center; }
+
+  .home-facts > div {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+// 링크를 앱 금색 계열로
+.home-cards a,
+.home-facts a,
+.home-browse a {
+  color: $ss-gold;
+
+  &:hover { color: #5f4919; }
+}
+
+html[data-theme="dark"] {
+  .home-cards {
+    .home-facts,
+    .home-browse {
+      background: linear-gradient(155deg, #23232b 0%, #1f1f26 55%, #1b1b21 100%);
+      border-color: #33333d;
+      box-shadow: none;
+    }
+  }
+
+  .home-cards a,
+  .home-facts a,
+  .home-browse a {
+    color: $ss-gold-dark;
+
+    &:hover { color: #ecd8a8; }
+  }
+}
