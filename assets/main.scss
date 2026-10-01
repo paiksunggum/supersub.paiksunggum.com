@@ -2131,29 +2131,6 @@ $role-soft: #5b5b68;
   li:last-child { margin-bottom: 0; }
 }
 
-.role-team {
-  padding-left: 0;
-  list-style: none;
-
-  li {
-    display: flex;
-    gap: 0.6rem;
-    padding: 0.35rem 0;
-    border-bottom: 1px solid #f1f0f6;
-    font-size: 0.82rem;
-  }
-
-  li:last-child { border-bottom: 0; }
-
-  span {
-    flex: 0 0 3.6rem;
-    font-weight: 700;
-    color: $role-ink;
-  }
-
-  .is-me span { color: $ss-sky; }
-}
-
 // --- 꼬리 ---------------------------------------------------------------------------
 .role-foot {
   margin-top: 3rem;
@@ -2214,15 +2191,12 @@ html[data-theme="dark"] {
   .role-stack li { border-color: #3a3a45; color: #dedee5; }
   .role-why dt { color: #f2f2f6; }
   .role-why dd { color: #a6a6b2; }
-  .role-team li { border-bottom-color: #2a2a31; }
-  .role-team span { color: #f2f2f6; }
   .role-foot { border-top-color: #33333b; }
   .role-foot > p:first-child { color: #f2f2f6; }
 
   .role a,
   .role-case dt,
   .role-card h3 em,
-  .role-team .is-me span { color: $ss-sky-dark; }
   .role a { text-decoration-color: $ss-sky-dark; }
 }
 
