@@ -1986,19 +1986,28 @@ $role-soft: #5b5b68;
 }
 
 // 스택 아래 한 줄짜리 선택 이유 (「왜 이 스킬을 선택했나」 절을 2026-10-01 에 여기로 흡수)
-.role-why {
+// 🔴 테마가 `.main-content dl` 에 `grid-template: auto / 10em 1fr` 와 `dt { text-align: right }`,
+//    `dt::after { content: ":" }` 를 박아 둔다. 선택자를 한 단계 더 주지 않으면 그쪽이 이겨서
+//    이름 칸이 왼쪽 상자에서 한참 떨어진 채 오른쪽 맞춤으로 나온다.
+.role-sec .role-why {
   display: grid;
   grid-template-columns: max-content minmax(0, 1fr);
-  gap: 0.45rem 0.9rem;
-  margin: 1rem 0 0;
+  gap: 0.5rem 1rem;
+  margin: 1.1rem 0 0;
 
   dt {
+    grid-column: 1;
+    margin: 0;
     font-size: 0.82rem !important;
     font-weight: 700;
+    text-align: left;
     color: #2b2b33;
+
+    &::after { content: none; }
   }
 
   dd {
+    grid-column: 2;
     margin: 0;
     font-size: 0.82rem !important;
     line-height: 1.75;
@@ -2007,11 +2016,14 @@ $role-soft: #5b5b68;
 }
 
 @media (max-width: 42rem) {
-  .role-why {
+  .role-sec .role-why {
     grid-template-columns: minmax(0, 1fr);
     gap: 0.15rem;
 
-    dd { margin-bottom: 0.6rem; }
+    dt,
+    dd { grid-column: 1; }
+
+    dd { margin-bottom: 0.7rem; }
   }
 }
 
