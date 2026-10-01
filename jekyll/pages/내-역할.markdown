@@ -91,14 +91,17 @@ nav_order: 0
 <section class="role-sec">
   <h2>폴더를 어떻게 나눴나</h2>
   <p class="role-lead">먼저 <b>기능으로</b> 나누고, 기능 안을 다시 <b>세 가지 일</b>로 나눴습니다 —
-  서버와 주고받는 일 · 계산하는 일 · 화면에 그리는 일. 기능이 여덟 갈래로 늘어나도 서로 안 얽힙니다.</p>
+  서버와 주고받는 일 · 계산하는 일 · 화면에 그리는 일. 기능이 <b>일곱 갈래</b>로 늘었는데,
+  영상 분석을 고칠 때는 <b><code>video</code> 하나만 엽니다.</b></p>
   <pre class="role-tree">lib/
-├─ core/        여러 기능이 같이 쓰는 것 — 통신 · 주소 · 색 · 화면 배율
-└─ features/    auth · card · home · intro · onboarding · profile · team · video
+├─ core/        여러 기능이 같이 쓰는 것 — 통신 · 주소 · 색 · 화면 배율*
+└─ features/    auth · card · home · intro · profile · team · video
    └─ video/                 (영상 분석 기능 하나)
       ├─ data/          서버와 주고받기
       ├─ domain/        동작 판정 · 관절 각도 계산
       └─ presentation/  화면 · 화면 조각</pre>
+  <p class="role-note">* <b>화면 배율</b>은 아래 「작은 휴대폰에서 화면이 깨졌다」를 풀면서 생긴 자리입니다.
+  한 화면에서 급히 막지 않고 <b>모든 화면이 같이 쓰는 곳</b>에 뒀습니다.</p>
 </section>
 
 
