@@ -1985,6 +1985,36 @@ $role-soft: #5b5b68;
   }
 }
 
+// 스택 아래 한 줄짜리 선택 이유 (「왜 이 스킬을 선택했나」 절을 2026-10-01 에 여기로 흡수)
+.role-why {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 0.45rem 0.9rem;
+  margin: 1rem 0 0;
+
+  dt {
+    font-size: 0.82rem !important;
+    font-weight: 700;
+    color: #2b2b33;
+  }
+
+  dd {
+    margin: 0;
+    font-size: 0.82rem !important;
+    line-height: 1.75;
+    color: $role-soft;
+  }
+}
+
+@media (max-width: 42rem) {
+  .role-why {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.15rem;
+
+    dd { margin-bottom: 0.6rem; }
+  }
+}
+
 // --- 폴더 그림 ----------------------------------------------------------------------
 .role-tree {
   margin: 0;
@@ -2170,6 +2200,8 @@ html[data-theme="dark"] {
   .role-card__meta { color: #a6a6b2 !important; }
   .role-stack h4 { color: #a6a6b2; }
   .role-stack li { border-color: #3a3a45; color: #dedee5; }
+  .role-why dt { color: #f2f2f6; }
+  .role-why dd { color: #a6a6b2; }
   .role-team li { border-bottom-color: #2a2a31; }
   .role-team span { color: #f2f2f6; }
   .role-foot { border-top-color: #33333b; }
