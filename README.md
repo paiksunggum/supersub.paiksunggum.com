@@ -21,6 +21,11 @@
 - 코드 전체 — [paiksunggum/super-sub.cloud](https://github.com/paiksunggum/super-sub.cloud) (제 작업 브랜치는 `paik`)
 - 팀 저장소 — [pmhllll12/super-sub.cloud](https://github.com/pmhllll12/super-sub.cloud)
 
+## 이어서 작업할 때
+
+🔴 **[`docs/작업-현황.md`](docs/작업-현황.md) 를 먼저 읽으세요.** 저장소 셋의 역할,
+고칠 때 밟았던 함정, 아직 안 된 것이 한 장에 있습니다.
+
 ## 이 저장소
 
 팀 제안서 사이트를 제 도메인으로 옮긴 것입니다. 본문은 네 사람이 함께 쓴 팀 문서

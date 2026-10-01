@@ -76,6 +76,9 @@ footer_content: "" # 꼬리말을 걷었다 — 팀 이름은 표지와 「내 �
 # backend API server source. All three are source code, not site
 # content — excluded from the build.
 exclude:
+  # 이어서 작업할 사람을 위한 메모다. 사이트에 실을 글이 아니라 발행하지 않는다
+  # (git 에는 그대로 있다 — 저장소를 열면 보인다).
+  - docs/
   - demo/
   - agent/
   - flutter/
